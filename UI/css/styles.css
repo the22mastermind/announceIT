@@ -137,6 +137,22 @@
     width: 100%;
     border: none;
   }
+  .signin-container {
+    background-color: #35255a;
+    background-image: none;
+  }
+  .signin-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .form-wrapper {
+    width: 100%;
+  }
+  .signin-form {
+    background-color: #FFFFFF;
+    padding: 20px;
+  }
 }
 /*Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) and (max-width: 767.98px) {
@@ -384,22 +400,42 @@
     width: 100%;
     border: none;
   }
+  .signin-body {
+    background-color: #35255a;
+    background-image: none;
+  }
+  .signin-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .form-wrapper {
+    width: 60%;
+  }
+  .signin-form {
+    background-color: #FFFFFF;
+    padding: 20px;
+    margin-top: 50px;
+  }
 }
 /*Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) and (max-width: 1199.98px) {
-	/* Nav */
-	.logo {
+  /* Nav */
+  .navbar {
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid #f6f6f629;
+  }
+  .logo {
 		color: #F6F6F6;
     font-family: 'Nunito', 'sans-serif';
     font-weight: 700;
-    font-size: 16pt;
-  }
-  .logo > a {
-    padding-left: 10px;
+    font-size: 18pt;
+    left: 20px;
+    position: absolute;
   }
   .menu {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     flex-wrap: wrap;
   }
@@ -407,16 +443,34 @@
     padding: 10px 20px !important;
     border: none;
     border-radius: 10px;
-    background-color: #35255a;
-    color: #F6F6F6;
-    margin-right: 10px;
+    background-color: #F6F6F6;
+    color: #35255a;
   }
-  .mobile-navlink {
-    text-align: right;
-    justify-content: flex-end;
+  .color {
+    color: #35255a;
   }
   .toggle {
     display: none;
+  }
+  .mobile-navlink {
+    display: block;
+    width: auto;
+    margin: 0px 15px;
+  }
+  .logo {
+      order: 0;
+  }
+  .mobile-navlink {
+      order: 1;
+  }
+  .button {
+      order: 2;
+  }
+  .menu li {
+      padding: 15px 10px;
+  }
+  .menu li.button {
+      padding-right: 0;
   }
 	/*  */
 	body {
@@ -503,6 +557,23 @@
     width: 100%;
     border: none;
   }
+  .signin-body {
+    background-color: #35255a;
+    background-image: none;
+  }
+  .signin-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .form-wrapper {
+    width: 50%;
+  }
+  .signin-form {
+    background-color: #FFFFFF;
+    padding: 20px;
+    margin-top: 50px;
+  }
 }
 /*Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
@@ -510,15 +581,24 @@
     padding: 20px;
   }
   /* Nav */
+  .navbar {
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid #f6f6f629;
+  }
+  .no-border {
+    border: none;
+  }
   .logo {
 		color: #F6F6F6;
     font-family: 'Nunito', 'sans-serif';
     font-weight: 700;
     font-size: 18pt;
+    left: 20px;
+    position: absolute;
   }
   .menu {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     flex-wrap: wrap;
   }
@@ -529,7 +609,7 @@
     background-color: #F6F6F6;
     color: #35255a;
   }
-  .mobile-navlink > a {
+  .color {
     color: #35255a;
   }
   .toggle {
@@ -538,6 +618,7 @@
   .mobile-navlink {
     display: block;
     width: auto;
+    margin: 0px 15px;
   }
   .logo {
       order: 0;
@@ -633,6 +714,29 @@
     width: 100%;
     border: none;
   }
+  .signin-body {
+    background-color: #35255a;
+    background-image: none;
+  }
+  .signin-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+  .signin-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .form-wrapper {
+    width: 40%;
+  }
+  .signin-form {
+    background-color: #FFFFFF;
+    padding: 20px;
+    margin-top: 50px;
+  }
 }
 /*Common styles*/
 html, body {
@@ -648,8 +752,8 @@ a {
 	text-decoration: none;
 	color: inherit;
 }
-.navlink:hover,
-.navlink:focus {
+.mobile-navlink > a:hover,
+.mobile-navlink > a:focus {
 	color: #CCCCCC;
 }
 .none {
@@ -666,3 +770,18 @@ ul {
   white-space: nowrap;
 }
 /*  */
+.right {
+  text-align: right;
+}
+.alt {
+  font-size: 10pt;
+}
+.alt > a {
+  color: #35255a;
+}
+.center {
+  text-align: center;
+}
+.text {
+  color: #555555;
+}
