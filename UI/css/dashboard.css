@@ -350,6 +350,12 @@ tbody > tr {
   border-radius: 10px;
   background-color: #FFFFFF;
 }
+.create-form {
+  width: 40%;
+  padding: 0px 40px;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+}
 .update-field {
   height: 25px;
   width: 100%;
@@ -370,6 +376,7 @@ textarea {
   font-size: 10pt;
   margin-bottom: 20px;
   border-radius: 10px;
+  font-family: 'Nunito', 'sans-serif';
 }
 .submit {
   background-color: #35255a;
@@ -401,8 +408,8 @@ textarea {
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
-}.toolbar > label {
-  margin-right: 5px;
+}.toolbar > .toolbar-item {
+  margin-right: 10px;
 }
 .select {
   padding: 5px;
@@ -410,4 +417,16 @@ textarea {
   color: #555555;
   border: none;
   border-bottom: 1px solid #EEEEEE;
+}
+.toolbar-btn {
+  background-color: #35255a;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: #F6F6F6;
+  font-size: 10pt;
+  width: 100%;
+  border: none;
+}
+.nopadding {
+  padding: 0px;
 }
