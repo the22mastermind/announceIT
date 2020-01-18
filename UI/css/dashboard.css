@@ -289,6 +289,7 @@ thead {
 }
 .main-content {
   width: 80%;
+  margin-bottom: 20px;
 }
 .sub-title {
   text-align: left;
@@ -351,10 +352,17 @@ tbody > tr {
   background-color: #FFFFFF;
 }
 .create-form {
-  width: 40%;
+  width: 100%;
   padding: 0px 40px;
   border-radius: 10px;
   background-color: #FFFFFF;
+}
+.update-field-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+label {
+  margin-bottom: 10px;
 }
 .update-field {
   height: 25px;
@@ -377,6 +385,7 @@ textarea {
   margin-bottom: 20px;
   border-radius: 10px;
   font-family: 'Nunito', 'sans-serif';
+  resize: none;
 }
 .submit {
   background-color: #35255a;
@@ -429,4 +438,7 @@ textarea {
 }
 .nopadding {
   padding: 0px;
+}
+.w40 {
+  width: 40%;
 }
