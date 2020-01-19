@@ -57,6 +57,7 @@
   }
   .info-card {
     margin: 20px;
+    position: absolute;
   }
 }
 /*Small devices (landscape phones, 576px and up)*/
@@ -417,6 +418,8 @@ tbody > tr {
 }
 .close {
   color: #35255a;
+  width: 100%;
+  text-align: right;
   font-size: 30px;
   font-weight: bold;
 }
@@ -488,4 +491,10 @@ tbody > tr {
 }
 .delete-options > .delete-btn {
   border-color: #D70026;
+}
+.update-status-select {
+  color: #555555;
+  border: none;
+  padding: 10px;
+  background-color: #eee;
 }
