@@ -395,3 +395,19 @@ textarea {
 .breadcrumb > a:focus {
   text-decoration: underline;
 }
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}.toolbar > label {
+  margin-right: 5px;
+}
+.select {
+  padding: 5px;
+  background-color: #F6F6F6;
+  color: #555555;
+  border: none;
+  border-bottom: 1px solid #EEEEEE;
+}
