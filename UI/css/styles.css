@@ -653,6 +653,22 @@
 		justify-content: flex-end;
 		align-items: flex-end;
   }
+  .tagline {
+    margin-bottom: 20px;
+  }
+  .title {
+    margin-bottom: 10px;
+    font-size: 22pt;
+    font-weight: 700;
+		font-family: 'Nunito', 'sans-serif';
+		text-align: center;
+  }
+  .description {
+    font-size: 11pt;
+    font-family: 'Roboto', 'sans-serif';
+    width: 400px;
+    text-align: center;
+  }
   .signup-form {
     width: 350px;
 		padding: 20px;
@@ -665,6 +681,25 @@
 		color: #35255a;
 		text-align: center;
   }
+  .signup-field {
+    height: 25px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: none;
+		border-bottom: 1px solid #EEEEEE;
+    padding-left: 5px;
+    font-size: 10pt;
+    margin-bottom: 20px;
+	}
+	.name-wrapper {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.name {
+		width: auto;
+	}
   .btn-wrapper {
     text-align: center;
   }
