@@ -40,7 +40,6 @@
     z-index: 1;
   }
   /*  */
-
 }
 /*Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) and (max-width: 767.98px) {
@@ -172,7 +171,9 @@
       padding-right: 0;
   }
   /*  */
-
+  .w40 {
+    width: 40%;
+  }
 }
 /*Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
@@ -221,6 +222,9 @@
       padding-right: 0;
   }
   /*  */
+  .w40 {
+    width: 40%;
+  }
 }
 /*Common styles*/
 html, body {
@@ -366,7 +370,6 @@ label {
 }
 .update-field {
   height: 25px;
-  width: 100%;
   margin-bottom: 10px;
   border: none;
   border: 1px solid #EEEEEE;
@@ -376,7 +379,6 @@ label {
   border-radius: 10px;
 }
 textarea {
-  width: 100%;
   margin-bottom: 10px;
   border: none;
   border: 1px solid #EEEEEE;
@@ -438,7 +440,4 @@ textarea {
 }
 .nopadding {
   padding: 0px;
-}
-.w40 {
-  width: 40%;
 }
