@@ -348,7 +348,8 @@ ul {
 }
 /*  */
 .highlight,
-thead {
+thead,
+.users-name {
   color: #35255a;
 }
 .content,
@@ -497,4 +498,7 @@ tbody > tr {
   border: none;
   padding: 10px;
   background-color: #eee;
+}
+.blacklisted {
+  opacity: 0.6;
 }
