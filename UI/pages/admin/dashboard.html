@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/fb1cc5eb35.js" crossorigin="anonymous"></script>
   <script src="../../js/script.js"></script>
+  <script src="../../js/modals.js"></script>
   <title>Dashboard - AnnounceIT</title>
 </head>
 
@@ -34,8 +35,9 @@
       <div class="main-content">
         <!-- Modal -->
         <div class="modal" id="popUpModal">
-          <div class="close">&times;</div>
+          
           <div class="info-card">
+            <div class="close">&times;</div>
             <h3 class="sub-title highlight">Announcement Details</h3>
             <div class="info-card-img"><img src="../../graphics/background1.svg" class="img"></div>
             <div class="highlight mb5">Announcement ID</div>
@@ -120,8 +122,8 @@
               <td>15/03/2020</td>
               <td>Active</td>
               <td class="options">
-                <a class="btn view-btn open-modal" href="#" onclick="openModal();">View</a>
-                <a class="btn delete-btn" href="#" onclick="deleteAnnouncement();">Delete</a>
+                <a class="btn view-btn open-modal" href="#" onclick="openModal()">View</a>
+                <a class="btn delete-btn" href="#" onclick="deleteAnnouncement()">Delete</a>
               </td>
             </tr>
             <tr>
@@ -132,8 +134,8 @@
               <td>10/04/2020</td>
               <td>Active</td>
               <td class="options">
-                <a class="btn view-btn open-modal" href="#" onclick="openModal();">View</a>
-                <a class="btn delete-btn" href="#" onclick="deleteAnnouncement();">Delete</a>
+                <a class="btn view-btn open-modal" href="#" onclick="openModal()">View</a>
+                <a class="btn delete-btn" href="#" onclick="deleteAnnouncement()">Delete</a>
               </td>
             </tr>
           </tbody>
@@ -141,40 +143,6 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript">
-    // Admin modal to view announcement details
-    const openModal = () => {
-      let modal = document.querySelector("#popUpModal");
-      // Display modal
-      modal.style.display = "flex";
-      // Close the modal by clicking close x
-      let dismissModal = document.querySelector(".close");
-      dismissModal.onclick = () => {
-        modal.style.display = "none";
-      }
-      window.onclick = (e) => {
-        if (e.target == modal) {
-          modal.style.display = "none";
-        }
-      }
-    }
-    // Admin modal to confirm delete announcement
-    const deleteAnnouncement = () => {
-      let modal = document.querySelector("#confirmation");
-      // Display modal
-      modal.style.display = "flex";
-      // Close the modal
-      let dismissModal = document.querySelector(".dismiss");
-      dismissModal.onclick = () => {
-        modal.style.display = "none";
-      }
-      window.onclick = (e) => {
-        if (e.target == modal) {
-          modal.style.display = "none";
-        }
-      }
-    }
-  </script>
 </body>
 
 </html>
