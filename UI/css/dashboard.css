@@ -188,7 +188,7 @@
 		color: #F6F6F6;
     font-family: 'Nunito', 'sans-serif';
     font-weight: 700;
-    font-size: 18pt;
+    font-size: 16pt;
     left: 20px;
     position: absolute;
   }
@@ -288,6 +288,12 @@ thead {
 .margin {
   margin: 20px;
 }
+.mb5 {
+  margin-bottom: 5px;
+}
+.mb20 {
+  margin-bottom: 20px;
+}
 .title-bar {
   width: 80%;
 }
@@ -342,7 +348,8 @@ tbody > tr {
 .img {
   width: 100%;
 }
-.update-wrapper {
+.update-wrapper,
+.view-wrapper {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -440,4 +447,12 @@ textarea {
 }
 .nopadding {
   padding: 0px;
+}
+.field-wrapper {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.details {
+  width: 40%;
+  margin-left: 20px;
 }
