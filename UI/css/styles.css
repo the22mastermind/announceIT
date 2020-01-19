@@ -704,8 +704,6 @@
     text-align: center;
   }
   .cta {
-    /* background-color: #BF2C6E; */
-    /* background-color: #35255a; */
     background-color: #fcca0e;
     padding: 15px;
     border-radius: 10px;
@@ -770,3 +768,25 @@ ul {
   white-space: nowrap;
 }
 /*  */
+.alt {
+  font-size: 10pt;
+}
+.alt > a {
+  color: #35255a;
+}
+.center {
+  text-align: center;
+}
+.text {
+  color: #555555;
+}
+.signup-field {
+  height: 25px;
+  width: 100%;
+  margin-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid #EEEEEE;
+  padding-left: 5px;
+  font-size: 10pt;
+  margin-bottom: 20px;
+}
