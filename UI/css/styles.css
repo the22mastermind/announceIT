@@ -153,6 +153,39 @@
     background-color: #FFFFFF;
     padding: 20px;
   }
+  .feed-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card {
+    background-color: #FFFFFF;
+    padding: 0px;
+    margin: 0px;
+  }
+  .card-title {
+    font-size: 12pt;
+  }
+  .feed-img-wrapper {
+    margin: 0px;;
+  }
+  .feed-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .pleft-pright10 {
+    padding: 0px 10px;
+  }
+  .fa-heart,
+  .fa-comment-dots,
+  .fa-flag {
+    font-size: 18px;
+    margin: 10px;
+    color: #35255a;
+  }
 }
 /*Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) and (max-width: 767.98px) {
@@ -247,8 +280,6 @@
     text-align: center;
   }
   .cta {
-    /* background-color: #BF2C6E; */
-    /* background-color: #35255a; */
     background-color: #fcca0e;
     padding: 10px;
     border-radius: 10px;
@@ -256,6 +287,39 @@
     font-size: 10pt;
     width: 100%;
     border: none;
+  }
+  .feed-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card {
+    background-color: #FFFFFF;
+    padding: 0px;
+    margin: 0px;
+  }
+  .card-title {
+    font-size: 12pt;
+  }
+  .feed-img-wrapper {
+    margin: 0px;;
+  }
+  .feed-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .pleft-pright10 {
+    padding: 0px 10px;
+  }
+  .fa-heart,
+  .fa-comment-dots,
+  .fa-flag {
+    font-size: 18px;
+    margin: 10px;
+    color: #35255a;
   }
 }
 /*Medium devices (tablets, 768px and up)*/
@@ -390,8 +454,6 @@
     text-align: center;
   }
   .cta {
-    /* background-color: #BF2C6E; */
-    /* background-color: #35255a; */
     background-color: #fcca0e;
     padding: 15px;
     border-radius: 10px;
@@ -416,6 +478,39 @@
     background-color: #FFFFFF;
     padding: 20px;
     margin-top: 50px;
+  }
+  .feed-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card {
+    background-color: #FFFFFF;
+    padding: 0px;
+    margin: 0px;
+  }
+  .card-title {
+    font-size: 12pt;
+  }
+  .feed-img-wrapper {
+    margin: 0px;;
+  }
+  .feed-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .pleft-pright10 {
+    padding: 0px 10px;
+  }
+  .fa-heart,
+  .fa-comment-dots,
+  .fa-flag {
+    font-size: 18px;
+    margin: 10px;
+    color: #35255a;
   }
 }
 /*Large devices (desktops, 992px and up)*/
@@ -547,8 +642,6 @@
     text-align: center;
   }
   .cta {
-    /* background-color: #BF2C6E; */
-    /* background-color: #35255a; */
     background-color: #fcca0e;
     padding: 15px;
     border-radius: 10px;
@@ -573,6 +666,31 @@
     background-color: #FFFFFF;
     padding: 20px;
     margin-top: 50px;
+  }
+  .feed-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card {
+    background-color: #FFFFFF;
+    padding: 20px;
+    margin: 0px 0px 40px 0px;
+    border-radius: 10px;
+  }
+  .feed-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .fa-heart,
+  .fa-comment-dots,
+  .fa-flag {
+    font-size: 18px;
+    margin: 10px;
+    color: #35255a;
   }
 }
 /*Extra large devices (large desktops, 1200px and up)*/
@@ -722,18 +840,33 @@
     align-items: center;
     margin-top: 50px;
   }
-  .signin-content {
+  .feed-content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
   .form-wrapper {
     width: 40%;
   }
-  .signin-form {
+  .card {
     background-color: #FFFFFF;
     padding: 20px;
-    margin-top: 50px;
+    margin: 0px 0px 40px 0px;
+    border-radius: 10px;
+  }
+  .feed-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .fa-heart,
+  .fa-comment-dots,
+  .fa-flag {
+    font-size: 18px;
+    margin: 10px;
+    color: #35255a;
   }
 }
 /*Common styles*/
@@ -780,13 +913,12 @@ ul {
 .text {
   color: #555555;
 }
-.signup-field {
-  height: 25px;
-  width: 100%;
-  margin-bottom: 10px;
-  border: none;
-  border-bottom: 1px solid #EEEEEE;
-  padding-left: 5px;
-  font-size: 10pt;
-  margin-bottom: 20px;
+.highlight {
+  color: #35255a;
+}
+.bold {
+  font-weight: 700;
+}
+.mr10 {
+  margin-right: 10px;
 }
