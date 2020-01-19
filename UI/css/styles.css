@@ -770,18 +770,3 @@ ul {
   white-space: nowrap;
 }
 /*  */
-.right {
-  text-align: right;
-}
-.alt {
-  font-size: 10pt;
-}
-.alt > a {
-  color: #35255a;
-}
-.center {
-  text-align: center;
-}
-.text {
-  color: #555555;
-}
