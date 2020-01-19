@@ -16,4 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
       link.innerHTML = "<i class='fas fa-times'></i>";
     }
   });
+  // Update announcement
+  document.querySelector('.update-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    setTimeout(() => {
+      alert('Announcement updated successfully');
+    }, 100);
+  });
 });
