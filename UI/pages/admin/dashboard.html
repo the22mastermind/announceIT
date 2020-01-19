@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../../css/admin.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/fb1cc5eb35.js" crossorigin="anonymous"></script>
+  <script src="../../js/script.js"></script>
+  <script src="../../js/modals.js"></script>
+  <title>Dashboard - AnnounceIT</title>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <ul class="menu">
+        <li class="logo"><a href="#">AnnounceIT</a></li>
+        <li class="mobile-navlink"><a href="#"><i class="fas fa-home"></i></a></li>
+        <li class="mobile-navlink"><a href="#"><i class="fas fa-bell"></i></a></li class="mobile-navlink">
+        <li class="mobile-navlink"><a href="#"><i class="fas fa-user-cog"></i></a></li class="mobile-navlink">
+        <li class="mobile-navlink button"><a href="#"><i class="fas fa-sign-out-alt"></i></a></li
+          class="mobile-navlink">
+        <li class="toggle"><a href="#"><i class="fas fa-bars"></i></a></li>
+      </ul>
+    </nav>
+
+    <div class="content">
+      <div class="title-bar margin">
+        <h3 class="page-title">Welcome, Admin</h3>
+      </div>
+      <h4 class="sub-title highlight">Announcements</h4>
+      <div class="main-content">
+        <!-- Modal -->
+        <div class="modal" id="popUpModal">
+          <div class="info-card">
+            <div class="close">&times;</div>
+            <h3 class="sub-title highlight">Announcement Details</h3>
+            <div class="info-card-img"><img src="../../graphics/background1.svg" class="img"></div>
+            <div class="highlight mb5">Announcement ID</div>
+            <div class="info-card-id">1</div>
+            <div class="highlight mb5">Title</div>
+            <div class="info-card-title">Public Announcement Service 1</div>
+            <div class="highlight mb5">Description</div>
+            <div class="info-card-description">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam fugiat labore illo fuga aspernatur
+              natus, qui odio sunt doloribus delectus id unde accusantium facilis nobis. Eveniet nisi vitae similique
+              autem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt esse in velit possimus, sed illum
+              voluptatem molestiae excepturi iste saepe minus, corporis ipsam necessitatibus veniam natus, voluptatum
+              obcaecati ex ipsum.
+
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus quasi ab dolores similique eaque neque
+              facilis. Autem qui provident dolores, totam reprehenderit mollitia hic! Doloremque eligendi dolores
+              quisquam accusantium recusandae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto omnis aut
+              laboriosam nulla culpa tenetur, veniam magni doloremque dicta, a ea aliquid. Laboriosam cum sit optio
+              veritatis at accusamus atque.
+            </div>
+            <div class="highlight mb5">Start Date</div>
+            <div class="info-card-date">10/02/2020</div>
+            <div class="highlight mb5">End Date</div>
+            <div class="info-card-date">30/03/2020</div>
+            <div class="highlight mb5">Posted by</div>
+            <div class="info-card-user">Digital Marketing Agency 1</div>
+          </div>
+        </div>
+        <!-- Confirm Modal -->
+        <div class="confirmModal" id="confirmation">
+          <div class="delete-card">
+            <h3 class="sub-title highlight">Delete Announcement</h3>
+            <div class="mb5">Are you sure you want to delete this announcement?</div>
+            <div class="delete-options">
+              <button class="btn view-btn dismiss">Cancel</button>
+              <button class="btn delete-btn dismiss">Delete</button>
+            </div>
+          </div>
+        </div>
+        <table class="table fullwidth">
+          <thead>
+            <tr>
+              <th class="table-id">#</th>
+              <th class="table-name">Username</th>
+              <th class="table-title">Title</th>
+              <th class="table-start-date">Start Date</th>
+              <th class="table-start-end">End Date</th class="table-start-date">
+              <th class="table-status">Status</th class="table-start-date">
+              <th class="table-options center">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Digital Marketing Agency 1</td>
+              <td>Public Announcement Service 1</td>
+              <td>10/02/2020</td>
+              <td>30/03/2020</td>
+              <td>
+                <form action="" method="" class="update-status-form">
+                  <select name="status" class="update-status-select">
+                    <option value="Pending" selected>Pending</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Declined">Declined</option>
+                    <option value="Active">Active</option>
+                    <option value="Deactivated">Deactivated</option>
+                  </select>
+                </form>
+              </td>
+              <td class="options">
+                <a class="btn view-btn open-modal" href="#" onclick="openModal()">View</a>
+                <a class="btn delete-btn" href="#" onclick="deleteAnnouncement()">Delete</a>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Digital Marketing Agency 2</td>
+              <td>Public Announcement Service 2</td>
+              <td>10/02/2020</td>
+              <td>30/03/2020</td>
+
+              <td>
+                <form action="" method="" class="update-status-form">
+                  <select name="status" class="update-status-select">
+                    <option value="Pending" selected>Pending</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Declined">Declined</option>
+                    <option value="Active">Active</option>
+                    <option value="Deactivated">Deactivated</option>
+                  </select>
+                </form>
+              </td>
+              <td class="options">
+                <a class="btn view-btn open-modal" href="#" onclick="openModal()">View</a>
+                <a class="btn delete-btn" href="#" onclick="deleteAnnouncement()">Delete</a>
+              </td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Digital Marketing Agency 5</td>
+              <td>Public Announcement Service 20</td>
+              <td>20/02/2020</td>
+              <td>15/03/2020</td>
+              <td>
+                <form action="" method="" class="update-status-form">
+                  <select name="status" class="update-status-select">
+                    <option value="Pending">Pending</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Declined">Declined</option>
+                    <option value="Active" selected>Active</option>
+                    <option value="Deactivated">Deactivated</option>
+                  </select>
+                </form>
+              </td>
+              <td class="options">
+                <a class="btn view-btn open-modal" href="#" onclick="openModal()">View</a>
+                <a class="btn delete-btn" href="#" onclick="deleteAnnouncement()">Delete</a>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Digital Marketing Agency 2</td>
+              <td>Public Announcement Service 12</td>
+              <td>1/02/2020</td>
+              <td>10/04/2020</td>
+              <td>
+                <form action="" method="" class="update-status-form">
+                  <select name="status" class="update-status-select">
+                    <option value="Pending">Pending</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Declined">Declined</option>
+                    <option value="Active" selected>Active</option>
+                    <option value="Deactivated">Deactivated</option>
+                  </select>
+                </form>
+              </td>
+              <td class="options">
+                <a class="btn view-btn open-modal" href="#" onclick="openModal()">View</a>
+                <a class="btn delete-btn" href="#" onclick="deleteAnnouncement()">Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
