@@ -40,11 +40,31 @@
     z-index: 1;
   }
   /*  */
-  .w40 {
-    width: 80%;
+  .w40,
+  .update-wrapper {
+    width: 80% !important;
+  }
+  .main-content {
+    width: 100%;
+    overflow: scroll;
+    padding: 10px;
   }
   .margin {
     margin: 20px 20px 0px 20px !important;
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .img-wrapper,
+  .update-form {
+    width: 100% !important;
+  }
+  .update-form {
+    padding: 0px !important;
+  }
+  .details {
+    width: 100% !important;
+    margin: 0px !important;
   }
 }
 /*Small devices (landscape phones, 576px and up)*/
@@ -131,7 +151,8 @@
       padding-right: 0;
   }
   /*  */
-  .w40 {
+  .w40,
+  .w60 {
     width: 80%;
   }
   .sub-title {
@@ -139,6 +160,20 @@
   }
   .margin {
     margin: 20px 20px 0px 20px !important;
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .img-wrapper,
+  .update-form {
+    width: 100% !important;
+  }
+  .update-form {
+    padding: 0px !important;
+  }
+  .details {
+    width: 100% !important;
+    margin: 0px !important;
   }
 }
 /*Large devices (desktops, 992px and up)*/
@@ -188,6 +223,26 @@
   .w40 {
     width: 40%;
   }
+  .w60 {
+    width: 60%;
+  }
+  .margin {
+    margin: 20px 20px 0px 20px !important;
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .img-wrapper,
+  .update-form {
+    width: 100% !important;
+  }
+  .update-form {
+    padding: 0px !important;
+  }
+  .details {
+    width: 100% !important;
+    margin: 0px !important;
+  }
 }
 /*Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
@@ -236,8 +291,28 @@
       padding-right: 0;
   }
   /*  */
+  .w60 {
+    width: 60%;
+  }
   .w40 {
     width: 40%;
+  }
+  .margin {
+    margin: 20px 20px 0px 20px !important;
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .img-wrapper,
+  .update-form {
+    width: 100% !important;
+  }
+  .update-form {
+    padding: 0px !important;
+  }
+  .details {
+    width: 100% !important;
+    margin: 0px !important;
   }
 }
 /*Common styles*/
@@ -379,6 +454,7 @@ tbody > tr {
   padding: 0px 40px;
   border-radius: 10px;
   background-color: #FFFFFF;
+  margin-bottom: 20px;
 }
 .update-field-wrapper {
   display: flex;
