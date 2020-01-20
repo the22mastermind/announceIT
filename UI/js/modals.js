@@ -30,3 +30,7 @@ const deleteAnnouncement = () => {
     }
   }
 }
+// User flag announcement
+document.querySelector('.flag-form').addEventListener("submit", (e) => {
+  alert('Announcement flagged!');
+});
