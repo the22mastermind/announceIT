@@ -168,6 +168,9 @@
   .title-bar {
     width: 100%;
   }
+  .margin {
+    margin: 20px 20px 0px 20px !important;
+  }
   .page-title {
     margin-left: 10px;
   }
@@ -241,6 +244,9 @@
   .info-card {
     margin: 20%;
   }
+  .margin {
+    margin: 20px 0px 0px 0px;
+  }
 }
 /*Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
@@ -301,6 +307,9 @@
   }
   .info-card {
     margin: 20%;
+  }
+  .margin {
+    margin: 20px 0px 0px 0px !important;
   }
 }
 /*Common styles*/
