@@ -288,6 +288,12 @@
     width: 100%;
     border: none;
   }
+  .signin-form {
+    background-color: #FFFFFF;
+    padding: 20px;
+    margin-top: 50px;
+    border-radius: 10px;
+  }
   .feed-content {
     display: flex;
     flex-direction: column;
@@ -478,6 +484,7 @@
     background-color: #FFFFFF;
     padding: 20px;
     margin-top: 50px;
+    border-radius: 10px;
   }
   .feed-content {
     display: flex;
@@ -666,6 +673,7 @@
     background-color: #FFFFFF;
     padding: 20px;
     margin-top: 50px;
+    border-radius: 10px;
   }
   .feed-content {
     display: flex;
@@ -839,6 +847,12 @@
     justify-content: center;
     align-items: center;
     margin-top: 50px;
+  }
+  .signin-form {
+    background-color: #FFFFFF;
+    padding: 20px;
+    margin-top: 50px;
+    border-radius: 10px;
   }
   .feed-content {
     display: flex;
