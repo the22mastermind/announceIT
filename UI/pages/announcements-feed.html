@@ -18,37 +18,50 @@
       <ul class="menu">
         <li class="logo"><a href="../index.html">AnnounceIT</a></li>
         <li class="mobile-navlink"><a href="../index.html">Home</a></li>
-        <li class="mobile-navlink"><a href="#">Announcements</a></li>
+        <li class="mobile-navlink"><a href="./announcements-feed.html">Announcements</a></li>
         <li class="mobile-navlink"><a href="#">About</a></li>
         <li class="mobile-navlink"><a href="#">FAQs</a></li>
-        <li class="mobile-navlink button"><a href="#">Sign in</a></li>
+        <li class="mobile-navlink button"><a href="./signin.html">Sign in</a></li>
         <li class="toggle"><a href="#"><i class="fas fa-bars"></i></a></li>
       </ul>
     </nav>
 
     <div class="feed-content">
       <h3 class="card-title">Announcements</h3>
-      <div class="form-wrapper card">
-        <p class="feed-img-wrapper">
-          <img class="img" src="../graphics/background1.svg">
-        </p>
-        <p class="alt text pleft-pright10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, magnam iusto saepe
-          quas repudiandae, earum corporis reiciendis ea tempore tenetur laboriosam aut repellat delectus perferendis
-          sunt explicabo officia placeat unde.</p>
-        <p class="alt text pleft-pright10"><span class="highlight bold mr10">username</span>Announcement Title</p>
-        <div class="feed-buttons">
-          <div>
-            <i class="fas fa-heart"></i>
-            <i class="fas fa-comment-dots"></i>
-          </div>
-          <div><i class="fas fa-flag" onclick="flagAnnouncement()"></i></div>
+      <!-- Flag announcement modal -->
+      <div class="confirmModal" id="confirmation">
+        <div class="delete-card">
+          <h3 class="sub-title highlight">Report Announcement</h3>
+          <div class="mb5 modal-text">We apologize if this announcement has caused you any frustration.</div>
+          <div class="mb5 modal-text">Please help us understand your frustration.</div>
+          <form class="flag-form" action="" method="">
+            <div class="flag-input-wrapper">
+              <label class="highlight mb5">Reason</label>
+              <select name="reason" class="modal-field">
+                <option disabled selected>Select a reason</option>
+                <option value="sexist">Sexist</option>
+                <option value="racist">Racist</option>
+                <option value="bad language">Bad language</option>
+                <option value="other">Other...</option>
+              </select>
+            </div>
+            <div class="flag-input-wrapper">
+              <label class="highlight mb5">Description</label>
+              <textarea rows="10" cols="33" placeholder="Please describe your frustration"></textarea>
+            </div>
+            <div class="flag-options">
+              <button class="btn view-btn dismiss">Cancel</button>
+              <button type="submit" class="btn delete-btn">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
       <div class="form-wrapper card">
         <p class="feed-img-wrapper">
           <img class="img" src="../graphics/background1.svg">
         </p>
-        <p class="alt text pleft-pright10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, magnam iusto saepe
+        <p class="alt text pleft-pright10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, magnam
+          iusto saepe
           quas repudiandae, earum corporis reiciendis ea tempore tenetur laboriosam aut repellat delectus perferendis
           sunt explicabo officia placeat unde.</p>
         <p class="alt text pleft-pright10"><span class="highlight bold mr10">username</span>Announcement Title</p>
@@ -57,14 +70,15 @@
             <i class="fas fa-heart"></i>
             <i class="fas fa-comment-dots"></i>
           </div>
-          <div><i class="fas fa-flag" onclick="flagAnnouncement()"></i></div>
+          <div><i class="fas fa-flag" onclick="deleteAnnouncement()"></i></div>
         </div>
       </div>
       <div class="form-wrapper card">
         <p class="feed-img-wrapper">
           <img class="img" src="../graphics/background1.svg">
         </p>
-        <p class="alt text pleft-pright10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, magnam iusto saepe
+        <p class="alt text pleft-pright10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, magnam
+          iusto saepe
           quas repudiandae, earum corporis reiciendis ea tempore tenetur laboriosam aut repellat delectus perferendis
           sunt explicabo officia placeat unde.</p>
         <p class="alt text pleft-pright10"><span class="highlight bold mr10">username</span>Announcement Title</p>
@@ -73,14 +87,15 @@
             <i class="fas fa-heart"></i>
             <i class="fas fa-comment-dots"></i>
           </div>
-          <div><i class="fas fa-flag" onclick="flagAnnouncement()"></i></div>
+          <div><i class="fas fa-flag" onclick="deleteAnnouncement()"></i></div>
         </div>
       </div>
       <div class="form-wrapper card">
         <p class="feed-img-wrapper">
           <img class="img" src="../graphics/background1.svg">
         </p>
-        <p class="alt text pleft-pright10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, magnam iusto saepe
+        <p class="alt text pleft-pright10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, magnam
+          iusto saepe
           quas repudiandae, earum corporis reiciendis ea tempore tenetur laboriosam aut repellat delectus perferendis
           sunt explicabo officia placeat unde.</p>
         <p class="alt text pleft-pright10"><span class="highlight bold mr10">username</span>Announcement Title</p>
@@ -89,12 +104,29 @@
             <i class="fas fa-heart"></i>
             <i class="fas fa-comment-dots"></i>
           </div>
-          <div><i class="fas fa-flag" onclick="flagAnnouncement()"></i></div>
+          <div><i class="fas fa-flag" onclick="deleteAnnouncement()"></i></div>
+        </div>
+      </div>
+      <div class="form-wrapper card">
+        <p class="feed-img-wrapper">
+          <img class="img" src="../graphics/background1.svg">
+        </p>
+        <p class="alt text pleft-pright10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, magnam
+          iusto saepe
+          quas repudiandae, earum corporis reiciendis ea tempore tenetur laboriosam aut repellat delectus perferendis
+          sunt explicabo officia placeat unde.</p>
+        <p class="alt text pleft-pright10"><span class="highlight bold mr10">username</span>Announcement Title</p>
+        <div class="feed-buttons">
+          <div>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-comment-dots"></i>
+          </div>
+          <div><i class="fas fa-flag" onclick="deleteAnnouncement()"></i></div>
         </div>
       </div>
 
     </div>
   </div>
-  <script src="../js/feed.js"></script>
+  <script src="../js/modals.js"></script>
 </body>
 </html>
