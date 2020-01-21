@@ -55,3 +55,4 @@ AnnounceIT is a solution for broadcasting agencies which allows them to be able 
 ![](UI/screenshots/admin-blacklist-users.png)
 
 #### 15. User flag announcement
+![](UI/screenshots/user-flag-announcement.png)
