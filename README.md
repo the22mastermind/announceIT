@@ -1,2 +1,2 @@
-# announceIT
+# announceIT          [![Build Status](https://travis-ci.com/the22mastermind/announceIT.svg?branch=ft-user-signup-endpoint-170816210)](https://travis-ci.com/the22mastermind/announceIT)    [![Coverage Status](https://coveralls.io/repos/github/the22mastermind/announceIT/badge.svg)](https://coveralls.io/github/the22mastermind/announceIT)
 AnnounceIT is a solution for broadcasting agencies which allows them to be able to receive and manage announcements.
