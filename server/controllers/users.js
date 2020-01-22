@@ -1,8 +1,13 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable no-shadow */
 import moment from 'moment';
+import bcrypt from 'bcrypt';
 import models from '../models/models';
 import helper from '../helpers/helper';
 import validation from '../middleware/validation';
+import messages from '../utils/messages';
 
+// eslint-disable-next-line func-names
 exports.userSignup = (req, res) => {
   // Joi Validation
   const { error } = validation.validateSignUp(req.body);
@@ -27,7 +32,7 @@ exports.userSignup = (req, res) => {
   if (!match) {
     return res.status(400).json({
       status: 400,
-      error: 'Please make sure your passwords are matching',
+      error: messages.passwordsNoMatch,
     });
   }
   // Check if user has already signed up
@@ -35,34 +40,59 @@ exports.userSignup = (req, res) => {
   if (myUser) {
     return res.status(400).json({
       status: 400,
-      error: 'User already registered. Please use a different email or reset your password',
+      error: messages.userExists,
     });
   }
   // Encrypt password
-  // Sign up the user
-  const newUser = {
-    id,
-    firstname: data.firstname,
-    lastname: data.lastname,
-    email: data.email,
-    phone: data.phone,
-    address: data.address,
-    password: data.password,
-    isAdmin: false,
-    registered: moment().format('LLLL'),
-  };
-  models.users.push(newUser);
-  return res.status(201).json({
-    status: 201,
-    data: {
-      id: newUser.id,
-      firstname: newUser.firstname,
-      lastname: newUser.lastname,
-      email: newUser.email,
-      phone: newUser.phone,
-      address: newUser.address,
-      isAdmin: false,
-      registered: newUser.registered,
-    },
+  return bcrypt.hash(data.password, 10, (err, hash) => {
+    if (err) {
+      return res.status(500).json({
+        status: 500,
+        error: err,
+      });
+    }
+    if (hash) {
+      try {
+        // Sign up the user
+        const newUser = {
+          id,
+          firstname: data.firstname,
+          lastname: data.lastname,
+          email: data.email,
+          phone: data.phone,
+          address: data.address,
+          password: hash,
+          isAdmin: false,
+          status: 'active',
+          registered: moment().format('LLLL'),
+        };
+        models.users.push(newUser);
+        return res.status(201).json({
+          status: 201,
+          message: messages.successfulSignup,
+          data: {
+            id: id,
+            firstname: newUser.firstname,
+            lastname: newUser.lastname,
+            email: newUser.email,
+            phone: newUser.phone,
+            address: newUser.address,
+            isAdmin: newUser.isAdmin,
+            status: newUser.status,
+            registered: newUser.registered,
+          },
+        });
+      } catch (error) {
+        return res.status(400).json({
+          status: 400,
+          error: error,
+        });
+      }
+    } else {
+      return res.status(401).json({
+        status: 401,
+        error: err,
+      });
+    }
   });
 };
