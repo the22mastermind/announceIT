@@ -6,7 +6,6 @@
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register server/tests/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "codec": "codecov",
     "dev": "nodemon --exec babel-node ./server/index.js"
   },
   "repository": {
