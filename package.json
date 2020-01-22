@@ -4,7 +4,7 @@
   "description": "AnnounceIT is a solution for broadcasting agencies which allows them to be able to receive and manage announcements.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require @babel/register ./server/tests/users.js -w",
+    "test": "mocha --require @babel/register ./server/tests/*.js -w",
     "dev": "nodemon --exec babel-node ./server/index.js"
   },
   "repository": {
