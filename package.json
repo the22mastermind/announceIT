@@ -6,7 +6,11 @@
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register server/tests/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "dev": "nodemon --require 'dotenv/config' --exec babel-node ./server/index.js"
+    "dev": "nodemon --require 'dotenv/config' --exec babel-node ./server/index.js",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./server -s",
+    "build": "npm run clean && npm run build-babel",
+    "start": "npm run build && node ./build/index.js"
   },
   "repository": {
     "type": "git",
@@ -56,5 +60,9 @@
     "include": [
       "server/"
     ]
+  },
+  "engines": {
+    "node": "8.17.0",
+    "npm": "6.13.4"
   }
 }

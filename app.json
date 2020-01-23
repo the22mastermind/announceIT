@@ -1,0 +1,11 @@
+{
+	"name": "announceit",
+	"description": "AnnounceIT is a solution for broadcasting agencies which allows them to be able to receive and manage announcements.",
+	"repository": "git+https://github.com/the22mastermind/announceIT.git",
+	"keywords": [
+    "announceIT",
+    "digital",
+    "marketing",
+    "announcements"
+  ]
+}
