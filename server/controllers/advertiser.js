@@ -140,3 +140,20 @@ exports.updateAnnouncement = (req, res) => {
     data: newAnnouncement,
   });
 };
+
+// Shared functionality
+exports.viewSpecificAnnouncement = (req, res) => {
+  const { announcementId } = req.params;
+  // Check and retrieve announcement
+  const announcement = utils.fetchAnnouncement(parseInt(announcementId, 10));
+  if (!announcement) {
+    return res.status(404).json({
+      status: 404,
+      error: messages.announcementDoesntExist,
+    });
+  }
+  return res.status(200).json({
+    status: 200,
+    data: announcement,
+  });
+};

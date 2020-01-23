@@ -23,3 +23,5 @@ exports.announcementNotFound = 'Announcement not found. Please make sure it exis
 exports.announcementUpdatetd = 'Announcement updated successfully';
 exports.announcementInvalidDesc = 'description length must be at least 100 characters long';
 exports.announcementEmptyDesc = 'description is not allowed to be empty';
+exports.announcementDoesntExist = 'Announcement not found';
+exports.invalidAnnouncementId = 'announcementId must be a number';
