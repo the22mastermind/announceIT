@@ -1,4 +1,5 @@
 /* eslint-disable object-shorthand */
+import dotenv from 'dotenv';
 import moment from 'moment';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -6,6 +7,8 @@ import models from '../models/models';
 import helper from '../helpers/helper';
 import validation from '../middleware/validation';
 import messages from '../utils/messages';
+
+dotenv.config();
 
 // eslint-disable-next-line func-names
 exports.userSignin = (req, res) => {
