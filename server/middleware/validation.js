@@ -35,7 +35,23 @@ function validateSignUp(user) {
   return Joi.validate(user, schema, options);
 }
 
+function validateCreateAnnouncement(data) {
+  const schema = {
+    title: Joi.string().min(10).max(30).required(),
+    description: Joi.string().min(100).max(1000).required(),
+    startdate: Joi.string().min(10).max(16).required(),
+    enddate: Joi.string().min(10).max(16).required(),
+  };
+  const options = {
+    language: {
+      key: '{{key}} ',
+    },
+  };
+  return Joi.validate(data, schema, options);
+}
+
 export default {
   validateSignin,
   validateSignUp,
+  validateCreateAnnouncement,
 };
