@@ -39,3 +39,11 @@ exports.checkDates = (start, end) => {
   }
   return true;
 };
+
+// Check if announcement exists already (title and creator)
+exports.fetchAnnouncement = (announcementId) => {
+  const announcement = models.announcements.find(({ id }) => id === announcementId);
+  // console.log('>>>> ', announcementId, typeof announcementId);
+  // console.log('<<<< ', announcement);
+  return announcement;
+};

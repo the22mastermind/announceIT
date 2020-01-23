@@ -75,3 +75,68 @@ exports.createAnnouncement = (req, res) => {
     data: newAnnouncement,
   });
 };
+
+exports.updateAnnouncement = (req, res) => {
+  // Joi Validation
+  const { error } = validation.validateUpdateAnnouncement(req.body);
+  if (error) {
+    return res.status(400).json({
+      status: 400,
+      error: error.details[0].message,
+    });
+  }
+  // Retrieve token info
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(token, process.env.JWT_KEY);
+  req.userData = decoded;
+  // Generate new id
+  const data = {
+    description: req.body.description.trim(),
+    startdate: moment(req.body.startdate.trim(), 'MM-DD-YYYY HH:mm').format('x'),
+    enddate: moment(req.body.enddate.trim(), 'MM-DD-YYYY HH:mm').format('x'),
+    owner: req.userData.id,
+    announcementId: req.params.id,
+  };
+  // Check if dates are valid
+  const areDatesValid = utils.checkDates(data.startdate, data.enddate);
+  if (!areDatesValid) {
+    return res.status(400).json({
+      status: 400,
+      error: messages.expiredDates,
+    });
+  }
+  // Check if user has permission to update announcements
+  const hasPermission = utils.userCanCreateAnnouncements(data.owner);
+  if (!hasPermission) {
+    return res.status(401).json({
+      status: 401,
+      error: messages.notAllowed,
+    });
+  }
+  // Check and retrieve announcement
+  const announcement = utils.fetchAnnouncement(parseInt(data.announcementId, 10));
+  if (!announcement) {
+    return res.status(404).json({
+      status: 404,
+      error: messages.announcementNotFound,
+    });
+  }
+  // Update announcement
+  const newAnnouncement = {
+    id: announcement.id,
+    title: announcement.title,
+    description: data.description,
+    startdate: data.startdate,
+    enddate: data.enddate,
+    status: announcement.status,
+    owner: data.owner,
+  };
+  announcement.description = newAnnouncement.description;
+  announcement.startdate = newAnnouncement.startdate;
+  announcement.enddate = newAnnouncement.enddate;
+  return res.status(200).json({
+    status: 200,
+    message: messages.announcementUpdatetd,
+    data: newAnnouncement,
+  });
+};

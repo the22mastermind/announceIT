@@ -186,4 +186,115 @@ describe('Advertiser', () => {
         done();
       });
   });
+  it('Should return status code 401', (done) => {
+    chai.request(app)
+      .patch('/api/v1/advertiser/announcement/1')
+      .send({
+        title: '70% discount on all products',
+        description: "January 2020 promo. Discount of up to 50% on all our products. Come buy all house items, we've got you covered! Valid only from jan 1st to jan 31st",
+        startdate: '02-23-2020 12:15',
+        enddate: '02-25-2020 11:59',
+      })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(401);
+        expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.noToken);
+        done();
+      });
+  });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .patch('/api/v1/advertiser/announcement/1')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        description: "February 2030 promo. Discount of up to 50% on all our products. Come buy all house items, we've got you covered! Valid only from jan 1st to jan 31st",
+        startdate: '02-23-2030 12:15',
+        enddate: '02-25-2030 11:59',
+      })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal(messages.announcementUpdatetd);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('id');
+        expect(res.body.data).to.have.property('title');
+        expect(res.body.data).to.have.property('description');
+        expect(res.body.data).to.have.property('startdate');
+        expect(res.body.data).to.have.property('enddate');
+        expect(res.body.data).to.have.property('status');
+        expect(res.body.data).to.have.property('owner');
+        expect(res.body.data.owner).to.be.a('number');
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .patch('/api/v1/advertiser/announcement/1')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        description: '',
+        startdate: '02-23-2020 12:15',
+        enddate: '02-25-2020 11:59',
+      })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.announcementEmptyDesc);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .patch('/api/v1/advertiser/announcement/1')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        description: 'none',
+        startdate: '02-23-2020 12:15',
+        enddate: '02-25-2020 11:59',
+      })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.announcementInvalidDesc);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .patch('/api/v1/advertiser/announcement/1')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        description: "January 2020 promo. Discount of up to 50% on all our products. Come buy all house items, we've got you covered! Valid only from jan 1st to jan 31st",
+        startdate: '01-01-2020 12:15',
+        enddate: '02-12-2019 11:59',
+      })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.expiredDates);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .patch('/api/v1/advertiser/announcement/1')
+      .set('Authorization', 'Bearer invalidkey')
+      .send({
+        description: "January 2020 promo. Discount of up to 50% on all our products. Come buy all house items, we've got you covered! Valid only from jan 1st to jan 31st",
+        startdate: '03-29-2020 12:15',
+        enddate: '05-25-2020 11:59',
+      })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.malformedToken);
+        done();
+      });
+  });
 });
