@@ -45,53 +45,35 @@ exports.userSignup = (req, res) => {
   }
   // Encrypt password
   return bcrypt.hash(data.password, 10, (err, hash) => {
-    if (err) {
-      return res.status(500).json({
-        status: 500,
-        error: err,
-      });
-    }
     if (hash) {
-      try {
-        // Sign up the user
-        const newUser = {
-          id,
-          firstname: data.firstname,
-          lastname: data.lastname,
-          email: data.email,
-          phone: data.phone,
-          address: data.address,
-          password: hash,
-          isAdmin: false,
-          status: 'active',
-          registered: moment().format('LLLL'),
-        };
-        models.users.push(newUser);
-        return res.status(201).json({
-          status: 201,
-          message: messages.successfulSignup,
-          data: {
-            id: id,
-            firstname: newUser.firstname,
-            lastname: newUser.lastname,
-            email: newUser.email,
-            phone: newUser.phone,
-            address: newUser.address,
-            isAdmin: newUser.isAdmin,
-            status: newUser.status,
-            registered: newUser.registered,
-          },
-        });
-      } catch (error) {
-        return res.status(400).json({
-          status: 400,
-          error: error,
-        });
-      }
-    } else {
-      return res.status(401).json({
-        status: 401,
-        error: err,
+      // Sign up the user
+      const newUser = {
+        id,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+        password: hash,
+        isAdmin: false,
+        status: 'active',
+        registered: moment().format('LLLL'),
+      };
+      models.users.push(newUser);
+      return res.status(201).json({
+        status: 201,
+        message: messages.successfulSignup,
+        data: {
+          id: id,
+          firstname: newUser.firstname,
+          lastname: newUser.lastname,
+          email: newUser.email,
+          phone: newUser.phone,
+          address: newUser.address,
+          isAdmin: newUser.isAdmin,
+          status: newUser.status,
+          registered: newUser.registered,
+        },
       });
     }
   });

@@ -2,6 +2,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
+import messages from '../utils/messages';
 
 const { expect } = chai;
 chai.use(chaiHttp);
@@ -15,13 +16,13 @@ describe('GET /', () => {
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('status');
         expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal('Welcome to AnnouneIT!');
+        expect(res.body.message).to.equal(messages.welcomeMessage);
         done();
       });
   });
 });
 
-describe('User sign up - valid', () => {
+describe('User sign up', () => {
   it('Should return status code 201', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -38,7 +39,7 @@ describe('User sign up - valid', () => {
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(201);
         expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal('User created successfully');
+        expect(res.body.message).to.equal(messages.successfulSignup);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('id');
         expect(res.body.data).to.have.property('firstname');
@@ -52,9 +53,26 @@ describe('User sign up - valid', () => {
         done();
       });
   });
-});
-
-describe('User sign up - invalid firstname', () => {
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstname: 'John',
+        lastname: 'Mugabo',
+        email: 'mugabo@gmail.com',
+        phone: '+250787770000',
+        address: 'Kigali, Rwanda',
+        password: 'mugabojohn',
+        confirmpassword: 'mugabojohn',
+      })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.userExists);
+        done();
+      });
+  });
   it('Should return status code 400', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -70,12 +88,10 @@ describe('User sign up - invalid firstname', () => {
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(400);
         expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.emptyFirstName);
         done();
       });
   });
-});
-
-describe('User sign up - passwords no match', () => {
   it('Should return status code 400', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -92,13 +108,10 @@ describe('User sign up - passwords no match', () => {
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal('Please make sure your passwords are matching');
+        expect(res.body.error).to.equal(messages.passwordsNoMatch);
         done();
       });
   });
-});
-
-describe('User sign up - empty email', () => {
   it('Should return status code 400', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -115,13 +128,10 @@ describe('User sign up - empty email', () => {
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal('email is not allowed to be empty');
+        expect(res.body.error).to.equal(messages.emptyEmail);
         done();
       });
   });
-});
-
-describe('User sign up - invalid email', () => {
   it('Should return status code 400', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -138,13 +148,10 @@ describe('User sign up - invalid email', () => {
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal('email must be a valid email');
+        expect(res.body.error).to.equal(messages.invalidEmail);
         done();
       });
   });
-});
-
-describe('User sign up - invalid firstname', () => {
   it('Should return status code 400', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -161,7 +168,7 @@ describe('User sign up - invalid firstname', () => {
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal('firstname length must be at least 3 characters long');
+        expect(res.body.error).to.equal(messages.invalidFirstName);
         done();
       });
   });

@@ -53,16 +53,7 @@
   "nyc": {
     "all": false,
     "include": [
-      "server/tests/*.js"
-    ],
-    "exclude": [
-      "server/config/*.js",
-      "server/controllers/*.js",
-      "server/helpers/*.js",
-      "server/middleware/*.js",
-      "server/models/*.js",
-      "server/routes/*.js",
-      "server/index.js"
+      "server/"
     ]
   }
 }
