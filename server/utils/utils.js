@@ -1,15 +1,6 @@
 import moment from 'moment';
 import models from '../models/models';
 
-// // Check if user exists
-// exports.doesUserExists = (data) => {
-//   const myUser = models.users.find((user) => user.email === data.email);
-//   if (myUser) {
-//     return true;
-//   }
-//   return false;
-// };
-
 // Check if user has permission to create announcements
 exports.userCanCreateAnnouncements = (id) => {
   const myUser = models.users.find((user) => user.id === id && user.status === 'active');
@@ -43,7 +34,5 @@ exports.checkDates = (start, end) => {
 // Check if announcement exists already (title and creator)
 exports.fetchAnnouncement = (announcementId) => {
   const announcement = models.announcements.find(({ id }) => id === announcementId);
-  // console.log('>>>> ', announcementId, typeof announcementId);
-  // console.log('<<<< ', announcement);
   return announcement;
 };

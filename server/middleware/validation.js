@@ -64,9 +64,22 @@ function validateUpdateAnnouncement(data) {
   return Joi.validate(data, schema, options);
 }
 
+function validateId(id) {
+  const schema = {
+    announcementId: Joi.number().min(1).max(100000).required(),
+  };
+  const options = {
+    language: {
+      key: '{{key}} ',
+    },
+  };
+  return Joi.validate(id, schema, options);
+}
+
 export default {
   validateSignin,
   validateSignUp,
   validateCreateAnnouncement,
   validateUpdateAnnouncement,
+  validateId,
 };
