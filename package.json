@@ -1,0 +1,59 @@
+{
+  "name": "announceit",
+  "version": "1.0.0",
+  "description": "AnnounceIT is a solution for broadcasting agencies which allows them to be able to receive and manage announcements.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register server/tests/*.js --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "dev": "nodemon --exec babel-node ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the22mastermind/announceIT.git"
+  },
+  "keywords": [
+    "announceIT",
+    "digital",
+    "marketing",
+    "announcements"
+  ],
+  "author": "Bertrand B Masabo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/the22mastermind/announceIT/issues"
+  },
+  "homepage": "https://github.com/the22mastermind/announceIT#readme",
+  "dependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@hapi/joi": "^15.0.3",
+    "bcrypt": "^3.0.7",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0"
+  },
+  "devDependencies": {
+    "babel-register": "^6.26.0",
+    "codecov": "^3.6.1",
+    "coveralls": "^3.0.9",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.0",
+    "mocha": "^7.0.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nodemon": "^2.0.2",
+    "nyc": "^15.0.0"
+  },
+  "nyc": {
+    "all": false,
+    "include": [
+      "server/"
+    ]
+  }
+}
