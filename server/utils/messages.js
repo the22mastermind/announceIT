@@ -26,3 +26,5 @@ exports.announcementEmptyDesc = 'description is not allowed to be empty';
 exports.announcementDoesntExist = 'Announcement not found';
 exports.invalidAnnouncementId = 'announcementId must be a number';
 exports.invalidAnnouncementStatus = 'announcementStatus must be one of [pending, accepted, declined, active, deactivated]';
+exports.noAminRights = 'Authorization failed! Access denied';
+exports.invalidToken = 'Authorization failed! Access denied';
