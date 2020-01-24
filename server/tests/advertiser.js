@@ -362,6 +362,7 @@ describe('Advertiser', () => {
   it('Should return status code 404', (done) => {
     chai.request(app)
       .get('/api/v1/advertiser/announcements/active')
+      .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(404);
@@ -373,6 +374,7 @@ describe('Advertiser', () => {
   it('Should return status code 400', (done) => {
     chai.request(app)
       .get('/api/v1/advertiser/announcements/something')
+      .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(400);
