@@ -153,4 +153,28 @@ describe('Admin', () => {
         done();
       });
   });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .delete('/api/v1/admin/announcements/1')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal(messages.announcementDeleted);
+        done();
+      });
+  });
+  it('Should return status code 404', (done) => {
+    chai.request(app)
+      .delete('/api/v1/admin/announcements/1000')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(404);
+        expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.announcementDoesntExist);
+        done();
+      });
+  });
 });
