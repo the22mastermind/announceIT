@@ -26,6 +26,7 @@ function validateSignUp(user) {
       .required(),
     confirmpassword: Joi.string().regex(/^[a-zA-Z0-9] |[a-zA-Z0-9]+$/).min(8).max(15)
       .required(),
+    isadmin: Joi.boolean().optional(),
   };
   const options = {
     language: {

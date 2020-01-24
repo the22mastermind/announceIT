@@ -90,6 +90,7 @@ exports.userSignup = (req, res) => {
     address: req.body.address.trim(),
     password: req.body.password.trim(),
     confirmpassword: req.body.confirmpassword.trim(),
+    isAdmin: req.body.isadmin ? req.body.isadmin : false,
   };
   // Check if passwords are matching
   const match = helper.matchPasswords(data.password, data.confirmpassword);
@@ -119,7 +120,7 @@ exports.userSignup = (req, res) => {
         phone: data.phone,
         address: data.address,
         password: hash,
-        isAdmin: false,
+        isAdmin: data.isAdmin,
         status: 'active',
         registered: moment().format('LLLL'),
       };
