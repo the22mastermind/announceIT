@@ -157,3 +157,19 @@ exports.viewSpecificAnnouncement = (req, res) => {
     data: announcement,
   });
 };
+
+exports.viewAnnouncementsOfState = (req, res) => {
+  const { announcementStatus } = req.params;
+  // Check and retrieve announcement
+  const announcements = utils.fetchAnnouncementsByStatus(announcementStatus);
+  if (announcements.length === 0) {
+    return res.status(404).json({
+      status: 404,
+      error: messages.announcementDoesntExist,
+    });
+  }
+  return res.status(200).json({
+    status: 200,
+    data: announcements,
+  });
+};

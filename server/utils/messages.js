@@ -25,3 +25,4 @@ exports.announcementInvalidDesc = 'description length must be at least 100 chara
 exports.announcementEmptyDesc = 'description is not allowed to be empty';
 exports.announcementDoesntExist = 'Announcement not found';
 exports.invalidAnnouncementId = 'announcementId must be a number';
+exports.invalidAnnouncementStatus = 'announcementStatus must be one of [pending, accepted, declined, active, deactivated]';
