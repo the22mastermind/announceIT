@@ -178,3 +178,22 @@ exports.viewAnnouncementsOfState = (req, res) => {
     data: announcements,
   });
 };
+
+exports.viewAllAnnouncements = (req, res) => {
+  // Retrieve token info
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(token, process.env.JWT_KEY);
+  req.userData = decoded;
+  // Check and retrieve announcements
+  const announcements = utils.fetchAllMyAnnouncements(req.userData.id);
+  if (announcements.length === 0) {
+    return res.status(404).json({
+      status: 404,
+      error: messages.announcementDoesntExist,
+    });
+  }
+  return res.status(200).json({
+    status: 200,
+    data: announcements,
+  });
+};
