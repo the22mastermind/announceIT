@@ -1,5 +1,10 @@
-# announceIT          [![Build Status](https://travis-ci.com/the22mastermind/announceIT.svg?branch=ft-user-signup-endpoint-170816210)](https://travis-ci.com/the22mastermind/announceIT)    [![Coverage Status](https://coveralls.io/repos/github/the22mastermind/announceIT/badge.svg?branch=ft-user-signup-endpoint-170816210)](https://coveralls.io/github/the22mastermind/announceIT?branch=ft-user-signup-endpoint-170816210)    [![Maintainability](https://api.codeclimate.com/v1/badges/9ec457ea535343b7424b/maintainability)](https://codeclimate.com/github/the22mastermind/announceIT/maintainability)
+[![Build Status](https://travis-ci.com/the22mastermind/announceIT.svg?branch=ft-user-signup-endpoint-170816210)](https://travis-ci.com/the22mastermind/announceIT)    [![Coverage Status](https://coveralls.io/repos/github/the22mastermind/announceIT/badge.svg?branch=ft-user-signup-endpoint-170816210)](https://coveralls.io/github/the22mastermind/announceIT?branch=ft-user-signup-endpoint-170816210)    [![Maintainability](https://api.codeclimate.com/v1/badges/9ec457ea535343b7424b/maintainability)](https://codeclimate.com/github/the22mastermind/announceIT/maintainability)
+
+
+# announceIT
+
 AnnounceIT is a solution for broadcasting agencies which allows them to be able to receive and manage announcements.
+
 
 ###### User Interface (https://the22mastermind.github.io/announceIT/)
 ###### API Docs (https://documenter.getpostman.com/view/10187591/SWT8fyXe?version=latest)
