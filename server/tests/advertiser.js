@@ -359,4 +359,26 @@ describe('Advertiser', () => {
         done();
       });
   });
+  it('Should return status code 404', (done) => {
+    chai.request(app)
+      .get('/api/v1/advertiser/announcements/active')
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(404);
+        expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.announcementDoesntExist);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .get('/api/v1/advertiser/announcements/something')
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.invalidAnnouncementStatus);
+        done();
+      });
+  });
 });

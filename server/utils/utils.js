@@ -36,3 +36,9 @@ exports.fetchAnnouncement = (announcementId) => {
   const announcement = models.announcements.find(({ id }) => id === announcementId);
   return announcement;
 };
+
+// Retrieve announcements of a specific status
+exports.fetchAnnouncementsByStatus = (state) => {
+  const announcements = models.announcements.filter(({ status }) => status === state);
+  return announcements;
+};

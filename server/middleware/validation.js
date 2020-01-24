@@ -76,10 +76,23 @@ function validateId(id) {
   return Joi.validate(id, schema, options);
 }
 
+function validateState(state) {
+  const schema = {
+    announcementStatus: Joi.string().valid(['pending', 'accepted', 'declined', 'active', 'deactivated']).required(),
+  };
+  const options = {
+    language: {
+      key: '{{key}} ',
+    },
+  };
+  return Joi.validate(state, schema, options);
+}
+
 export default {
   validateSignin,
   validateSignUp,
   validateCreateAnnouncement,
   validateUpdateAnnouncement,
   validateId,
+  validateState,
 };
