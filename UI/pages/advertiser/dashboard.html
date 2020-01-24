@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/fb1cc5eb35.js" crossorigin="anonymous"></script>
+  <script src="../../js/script.js"></script>
+  <title>Dashboard - AnnounceIT</title>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <ul class="menu">
+        <li class="logo"><a href="../../../index.html">AnnounceIT</a></li>
+        <li class="mobile-navlink"><a href="dashboard.html"><i class="fas fa-home"></i></a></li>
+        <li class="mobile-navlink"><a href="#"><i class="fas fa-bell"></i></a></li class="mobile-navlink">
+        <li class="mobile-navlink"><a href="#"><i class="fas fa-user-cog"></i></a></li class="mobile-navlink">
+        <li class="mobile-navlink button"><a href="../signin.html"><i class="fas fa-sign-out-alt"></i></a></li
+          class="mobile-navlink">
+        <li class="toggle"><a href="#"><i class="fas fa-bars"></i></a></li>
+      </ul>
+    </nav>
+
+    <div class="content">
+      <div class="margin w60">
+        <h3 class="page-title">Welcome, Digital Marketing Agency</h3>
+      </div>
+      <h4 class="sub-title highlight w60">Announcements</h4>
+      <div class="main-content w60">
+        <div class="toolbar">
+          <div class="toolbar-item">
+            <a href="new.html" class="toolbar-btn">New</a>
+          </div>
+          <div class="toolbar-item">
+            <label class="highlight">View by status:</label>
+            <select class="select">
+              <option disabled selected>Select status</option>
+              <option value="pending">Pending</option>
+              <option value="accepted">Accepted</option>
+              <option value="declined">Declined</option>
+              <option value="active">Active</option>
+              <option value="deactivated">Deactivated</option>
+            </select>
+          </div>
+        </div>
+        <table class="table fullwidth">
+          <thead>
+            <tr>
+              <th class="table-id">#</th>
+              <th class="table-title">Title</th>
+              <th class="table-start-date">Start Date</th>
+              <th class="table-start-end">End Date</th class="table-start-date">
+              <th class="table-status">Status</th class="table-start-date">
+              <th class="table-options center">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1567</td>
+              <td>Public Announcement Service 1</td>
+              <td>10/02/2020</td>
+              <td>30/03/2020</td>
+              <td>Pending</td>
+              <td class="options">
+                <a class="btn view-btn" href="announcement.html">View</a>
+                <a class="btn update-btn" href="./update.html">Update</a>
+              </td>
+            </tr>
+            <tr>
+              <td>1565</td>
+              <td>Public Announcement Service 2</td>
+              <td>10/02/2020</td>
+              <td>30/03/2020</td>
+              <td>Pending</td>
+              <td class="options">
+                <a class="btn view-btn" href="announcement.html">View</a>
+                <a class="btn update-btn" href="./update.html">Update</a>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
