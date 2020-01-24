@@ -10,7 +10,7 @@ exports.userCanCreateAnnouncements = (id) => {
   return false;
 };
 
-// Check if announcement exists already (title and creator)
+// Check if announcement exists (title and creator)
 exports.announcementExists = (newTitle, creator) => {
   const announcement = models.announcements.find(({ title, owner }) => title === newTitle && owner === creator);
   if (announcement) {
@@ -31,7 +31,7 @@ exports.checkDates = (start, end) => {
   return true;
 };
 
-// Check if announcement exists already (title and creator)
+// Check if announcement exists (id)
 exports.fetchAnnouncement = (announcementId) => {
   const announcement = models.announcements.find(({ id }) => id === announcementId);
   return announcement;

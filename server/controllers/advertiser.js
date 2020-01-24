@@ -159,10 +159,15 @@ exports.viewSpecificAnnouncement = (req, res) => {
 };
 
 exports.viewAnnouncementsOfState = (req, res) => {
+  // Retrieve token info
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(token, process.env.JWT_KEY);
+  req.userData = decoded;
   const { announcementStatus } = req.params;
   // Check and retrieve announcement
   const announcements = utils.fetchAnnouncementsByStatus(announcementStatus);
-  if (announcements.length === 0) {
+  const myAnnouncements = announcements.filter(({ owner }) => owner === req.userData.id);
+  if (announcements.length === 0 || myAnnouncements.length === 0) {
     return res.status(404).json({
       status: 404,
       error: messages.announcementDoesntExist,
