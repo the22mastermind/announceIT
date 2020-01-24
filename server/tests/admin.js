@@ -177,4 +177,52 @@ describe('Admin', () => {
         done();
       });
   });
+  it('Should return status code 201', (done) => {
+    chai.request(app)
+      .post('/api/v1/advertiser/announcement')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        title: '70% discount on all products',
+        description: "January 2020 promo. Discount of up to 50% on all our products. Come buy all house items, we've got you covered! Valid only from jan 1st to jan 31st",
+        startdate: '02-23-2020 12:15',
+        enddate: '02-25-2020 11:59',
+      })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(201);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal(messages.announcementCreated);
+        done();
+      });
+  });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .patch('/api/v1/admin/announcements/1')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        announcementStatus: 'accepted',
+      })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal(messages.announcementUpdatetd);
+        done();
+      });
+  });
+  it('Should return status code 404', (done) => {
+    chai.request(app)
+      .patch('/api/v1/admin/announcements/1000')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        announcementStatus: 'accepted',
+      })
+      .end((err, res) => {
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(404);
+        expect(res.body).to.have.property('error');
+        expect(res.body.error).to.equal(messages.announcementDoesntExist);
+        done();
+      });
+  });
 });
