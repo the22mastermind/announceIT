@@ -8,5 +8,6 @@ const router = express.Router();
 
 router.get('/announcements', authenticate, isUserAdmin, controller.viewAllUsersAnnouncements);
 router.delete('/announcements/:announcementId', authenticate, isUserAdmin, checkId, controller.deleteAnnouncement);
+router.patch('/announcements/:announcementId', authenticate, isUserAdmin, checkId, controller.changeAnnouncementStatus);
 
 export default router;
