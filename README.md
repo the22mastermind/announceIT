@@ -33,7 +33,7 @@ Click [here](https://www.getpostman.com/downloads/) to download and install POST
 
 After setting up POSTMAN, run it then make requests using the the API Endpoints table below.
 
-Example of a request URL: GET `http://localhost:4000/api/v1/auth/signup`
+Example of a request URL: POST `http://localhost:4000/api/v1/auth/signup`
 
 ### API Endpoints
 | HTTP Method | Endpoint                                               | Description                             |
