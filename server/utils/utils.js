@@ -48,3 +48,9 @@ exports.fetchAllMyAnnouncements = (id) => {
   const announcements = models.announcements.filter(({ owner }) => owner === id);
   return announcements;
 };
+
+// Fetch user announcement (announcementId, owner)
+exports.fetchUserAnnouncement = (announcementId, creator) => {
+  const announcement = models.announcements.find(({ id, owner }) => id === announcementId && owner === creator);
+  return announcement;
+};

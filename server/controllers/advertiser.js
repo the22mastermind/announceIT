@@ -114,7 +114,7 @@ exports.updateAnnouncement = (req, res) => {
     });
   }
   // Check and retrieve announcement
-  const announcement = utils.fetchAnnouncement(parseInt(data.announcementId, 10));
+  const announcement = utils.fetchUserAnnouncement(parseInt(data.announcementId, 10), data.owner);
   if (!announcement) {
     return res.status(404).json({
       status: 404,
