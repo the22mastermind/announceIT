@@ -25,10 +25,11 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(401);
+        expect(status).to.equal(401);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.noToken);
+        expect(error).to.equal(messages.noToken);
         done();
       });
   });
@@ -45,10 +46,11 @@ describe('Advertiser', () => {
         confirmpassword: 'mugabojohn',
       })
       .end((err, res) => {
+        const { status, message } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(201);
+        expect(status).to.equal(201);
         expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.successfulSignup);
+        expect(message).to.equal(messages.successfulSignup);
         done();
       });
   });
@@ -60,12 +62,13 @@ describe('Advertiser', () => {
         password: 'mugabojohn',
       })
       .end((err, res) => {
-        token = res.body.data.token;
+        const { status, message, data } = res.body;
+        token = data.token;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(200);
+        expect(status).to.equal(200);
         expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.successfulLogin);
-        expect(res.body.data).to.have.property('token');
+        expect(message).to.equal(messages.successfulLogin);
+        expect(data).to.have.property('token');
         done();
       });
   });
@@ -80,21 +83,31 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+          createdon,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(201);
+        expect(res.body.status).to.equal(201);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal(messages.announcementCreated);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data).to.have.property('title');
-        expect(res.body.data).to.have.property('description');
-        expect(res.body.data).to.have.property('startdate');
-        expect(res.body.data).to.have.property('enddate');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data.status).to.equal('pending');
-        expect(res.body.data).to.have.property('owner');
-        expect(res.body.data.owner).to.be.a('number');
-        expect(res.body.data).to.have.property('createdon');
+        expect(id);
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(status).to.equal('pending');
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
         done();
       });
   });
@@ -109,10 +122,11 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementExists);
+        expect(error).to.equal(messages.announcementExists);
         done();
       });
   });
@@ -127,10 +141,11 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementEmptyTitle);
+        expect(error).to.equal(messages.announcementEmptyTitle);
         done();
       });
   });
@@ -145,10 +160,11 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementInvalidTitle);
+        expect(error).to.equal(messages.announcementInvalidTitle);
         done();
       });
   });
@@ -163,10 +179,11 @@ describe('Advertiser', () => {
         enddate: '02-12-2019 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.expiredDates);
+        expect(error).to.equal(messages.expiredDates);
         done();
       });
   });
@@ -181,10 +198,11 @@ describe('Advertiser', () => {
         enddate: '05-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.malformedToken);
+        expect(error).to.equal(messages.malformedToken);
         done();
       });
   });
@@ -198,10 +216,11 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(401);
+        expect(status).to.equal(401);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.noToken);
+        expect(error).to.equal(messages.noToken);
         done();
       });
   });
@@ -215,19 +234,28 @@ describe('Advertiser', () => {
         enddate: '02-25-2030 11:59',
       })
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal(messages.announcementUpdatetd);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data).to.have.property('title');
-        expect(res.body.data).to.have.property('description');
-        expect(res.body.data).to.have.property('startdate');
-        expect(res.body.data).to.have.property('enddate');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data).to.have.property('owner');
-        expect(res.body.data.owner).to.be.a('number');
+        expect(id);
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
         done();
       });
   });
@@ -241,10 +269,11 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementEmptyDesc);
+        expect(error).to.equal(messages.announcementEmptyDesc);
         done();
       });
   });
@@ -258,10 +287,11 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementInvalidDesc);
+        expect(error).to.equal(messages.announcementInvalidDesc);
         done();
       });
   });
@@ -275,10 +305,11 @@ describe('Advertiser', () => {
         enddate: '02-12-2019 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.expiredDates);
+        expect(error).to.equal(messages.expiredDates);
         done();
       });
   });
@@ -292,10 +323,11 @@ describe('Advertiser', () => {
         enddate: '05-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.malformedToken);
+        expect(error).to.equal(messages.malformedToken);
         done();
       });
   });
@@ -304,10 +336,11 @@ describe('Advertiser', () => {
       .get('/api/v1/advertiser/announcement/100')
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(404);
+        expect(status).to.equal(404);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementDoesntExist);
+        expect(error).to.equal(messages.announcementDoesntExist);
         done();
       });
   });
@@ -322,22 +355,32 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+          createdon,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(201);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal(messages.announcementCreated);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data).to.have.property('title');
-        expect(res.body.data).to.have.property('description');
-        expect(res.body.data).to.have.property('startdate');
-        expect(res.body.data).to.have.property('enddate');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data.status).to.equal('pending');
-        expect(res.body.data).to.have.property('owner');
-        expect(res.body.data.owner).to.be.a('number');
-        expect(res.body.data).to.have.property('createdon');
-        announcementId = res.body.data.id;
+        expect(id);
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(status).to.equal('pending');
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
+        announcementId = id;
         done();
       });
   });
@@ -346,19 +389,29 @@ describe('Advertiser', () => {
       .get(`/api/v1/advertiser/announcement/${announcementId}`)
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+          createdon,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data.id).to.be.a('number');
-        expect(res.body.data).to.have.property('title');
-        expect(res.body.data).to.have.property('description');
-        expect(res.body.data).to.have.property('startdate');
-        expect(res.body.data).to.have.property('enddate');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data).to.have.property('owner');
-        expect(res.body.data.owner).to.be.a('number');
-        expect(res.body.data).to.have.property('createdon');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
         done();
       });
   });
@@ -367,10 +420,11 @@ describe('Advertiser', () => {
       .get('/api/v1/advertiser/announcements/active')
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(404);
+        expect(status).to.equal(404);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementDoesntExist);
+        expect(error).to.equal(messages.announcementDoesntExist);
         done();
       });
   });
@@ -379,10 +433,11 @@ describe('Advertiser', () => {
       .get('/api/v1/advertiser/announcements/something')
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.invalidAnnouncementStatus);
+        expect(error).to.equal(messages.invalidAnnouncementStatus);
         done();
       });
   });
@@ -397,21 +452,31 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+          createdon,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(201);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal(messages.announcementCreated);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data).to.have.property('title');
-        expect(res.body.data).to.have.property('description');
-        expect(res.body.data).to.have.property('startdate');
-        expect(res.body.data).to.have.property('enddate');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data.status).to.equal('pending');
-        expect(res.body.data).to.have.property('owner');
-        expect(res.body.data.owner).to.be.a('number');
-        expect(res.body.data).to.have.property('createdon');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
         done();
       });
   });
@@ -426,21 +491,31 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+          createdon,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(201);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal(messages.announcementCreated);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data).to.have.property('title');
-        expect(res.body.data).to.have.property('description');
-        expect(res.body.data).to.have.property('startdate');
-        expect(res.body.data).to.have.property('enddate');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data.status).to.equal('pending');
-        expect(res.body.data).to.have.property('owner');
-        expect(res.body.data.owner).to.be.a('number');
-        expect(res.body.data).to.have.property('createdon');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
         done();
       });
   });
@@ -449,19 +524,29 @@ describe('Advertiser', () => {
       .get('/api/v1/advertiser/announcements')
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+          createdon,
+        } = res.body.data[0];
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('data');
-        expect(res.body.data[0]).to.have.property('id');
-        expect(res.body.data[0].id).to.be.a('number');
-        expect(res.body.data[0]).to.have.property('title');
-        expect(res.body.data[0]).to.have.property('description');
-        expect(res.body.data[0]).to.have.property('startdate');
-        expect(res.body.data[0]).to.have.property('enddate');
-        expect(res.body.data[0]).to.have.property('status');
-        expect(res.body.data[0]).to.have.property('owner');
-        expect(res.body.data[0].owner).to.be.a('number');
-        expect(res.body.data[0]).to.have.property('createdon');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
         done();
       });
   });
@@ -470,19 +555,29 @@ describe('Advertiser', () => {
       .get('/api/v1/advertiser/announcements/pending')
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+          createdon,
+        } = res.body.data[0];
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('data');
-        expect(res.body.data[0]).to.have.property('id');
-        expect(res.body.data[0].id).to.be.a('number');
-        expect(res.body.data[0]).to.have.property('title');
-        expect(res.body.data[0]).to.have.property('description');
-        expect(res.body.data[0]).to.have.property('startdate');
-        expect(res.body.data[0]).to.have.property('enddate');
-        expect(res.body.data[0]).to.have.property('status');
-        expect(res.body.data[0]).to.have.property('owner');
-        expect(res.body.data[0].owner).to.be.a('number');
-        expect(res.body.data[0]).to.have.property('createdon');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
         done();
       });
   });
@@ -499,10 +594,11 @@ describe('Advertiser', () => {
         confirmpassword: 'munyanajannet',
       })
       .end((err, res) => {
+        const { status, message } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(201);
+        expect(status).to.equal(201);
         expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.successfulSignup);
+        expect(message).to.equal(messages.successfulSignup);
         done();
       });
   });
@@ -514,12 +610,13 @@ describe('Advertiser', () => {
         password: 'munyanajannet',
       })
       .end((err, res) => {
-        anotherUserToken = res.body.data.token;
+        const { status, message, data } = res.body;
+        anotherUserToken = data.token;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(200);
+        expect(status).to.equal(200);
         expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.successfulLogin);
-        expect(res.body.data).to.have.property('token');
+        expect(message).to.equal(messages.successfulLogin);
+        expect(data).to.have.property('token');
         done();
       });
   });
@@ -528,10 +625,11 @@ describe('Advertiser', () => {
       .get('/api/v1/advertiser/announcements')
       .set('Authorization', `Bearer ${anotherUserToken}`)
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(404);
+        expect(status).to.equal(404);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementDoesntExist);
+        expect(error).to.equal(messages.announcementDoesntExist);
         done();
       });
   });
@@ -546,21 +644,31 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+          createdon,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(201);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal(messages.announcementCreated);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data).to.have.property('title');
-        expect(res.body.data).to.have.property('description');
-        expect(res.body.data).to.have.property('startdate');
-        expect(res.body.data).to.have.property('enddate');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data.status).to.equal('pending');
-        expect(res.body.data).to.have.property('owner');
-        expect(res.body.data.owner).to.be.a('number');
-        expect(res.body.data).to.have.property('createdon');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
         done();
       });
   });
@@ -574,19 +682,29 @@ describe('Advertiser', () => {
         enddate: '02-25-2030 11:59',
       })
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal(messages.announcementUpdatetd);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data).to.have.property('title');
-        expect(res.body.data).to.have.property('description');
-        expect(res.body.data).to.have.property('startdate');
-        expect(res.body.data).to.have.property('enddate');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data).to.have.property('owner');
-        expect(res.body.data.owner).to.be.a('number');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
         done();
       });
   });
@@ -600,10 +718,11 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementEmptyDesc);
+        expect(error).to.equal(messages.announcementEmptyDesc);
         done();
       });
   });
@@ -617,10 +736,11 @@ describe('Advertiser', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(404);
+        expect(status).to.equal(404);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementNotFound);
+        expect(error).to.equal(messages.announcementNotFound);
         done();
       });
   });

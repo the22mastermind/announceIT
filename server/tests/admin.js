@@ -28,10 +28,11 @@ describe('Admin', () => {
         isadmin: true,
       })
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(201);
-        expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.successfulSignup);
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(201);
+        expect(message);
+        expect(message).to.equal(messages.successfulSignup);
         done();
       });
   });
@@ -43,11 +44,12 @@ describe('Admin', () => {
         password: 'mugabojohn',
       })
       .end((err, res) => {
+        const { status, message } = res.body;
         admintoken = res.body.data.token;
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(200);
-        expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.successfulLogin);
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.successfulLogin);
         expect(res.body.data).to.have.property('token');
         expect(res.body.data).to.have.property('isAdmin');
         expect(res.body.data.isAdmin).to.equal(true);
@@ -59,10 +61,11 @@ describe('Admin', () => {
       .get('/api/v1/admin/announcements')
       .set('Authorization', `Bearer ${admintoken}`)
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(404);
-        expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementDoesntExist);
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(404);
+        expect(error);
+        expect(error).to.equal(messages.announcementDoesntExist);
         done();
       });
   });
@@ -79,10 +82,11 @@ describe('Admin', () => {
         confirmpassword: 'mugabojohn',
       })
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(201);
-        expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.successfulSignup);
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(201);
+        expect(message);
+        expect(message).to.equal(messages.successfulSignup);
         done();
       });
   });
@@ -94,11 +98,12 @@ describe('Admin', () => {
         password: 'mugabojohn',
       })
       .end((err, res) => {
+        const { status, message } = res.body;
         token = res.body.data.token;
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(200);
-        expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.successfulLogin);
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.successfulLogin);
         expect(res.body.data).to.have.property('token');
         done();
       });
@@ -114,10 +119,11 @@ describe('Admin', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(201);
-        expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.announcementCreated);
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(201);
+        expect(message);
+        expect(message).to.equal(messages.announcementCreated);
         done();
       });
   });
@@ -125,10 +131,11 @@ describe('Admin', () => {
     chai.request(app)
       .get('/api/v1/admin/announcements')
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(401);
-        expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.noToken);
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(401);
+        expect(error);
+        expect(error).to.equal(messages.noToken);
         done();
       });
   });
@@ -137,19 +144,29 @@ describe('Admin', () => {
       .get('/api/v1/admin/announcements')
       .set('Authorization', `Bearer ${admintoken}`)
       .end((err, res) => {
+        const {
+          id,
+          title,
+          description,
+          startdate,
+          enddate,
+          status,
+          owner,
+          createdon,
+        } = res.body.data[0];
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('data');
-        expect(res.body.data[0]).to.have.property('id');
-        expect(res.body.data[0].id).to.be.a('number');
-        expect(res.body.data[0]).to.have.property('title');
-        expect(res.body.data[0]).to.have.property('description');
-        expect(res.body.data[0]).to.have.property('startdate');
-        expect(res.body.data[0]).to.have.property('enddate');
-        expect(res.body.data[0]).to.have.property('status');
-        expect(res.body.data[0]).to.have.property('owner');
-        expect(res.body.data[0].owner).to.be.a('number');
-        expect(res.body.data[0]).to.have.property('createdon');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(description);
+        expect(startdate);
+        expect(enddate);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
         done();
       });
   });
@@ -158,10 +175,11 @@ describe('Admin', () => {
       .delete('/api/v1/admin/announcements/1')
       .set('Authorization', `Bearer ${admintoken}`)
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(200);
-        expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.announcementDeleted);
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.announcementDeleted);
         done();
       });
   });
@@ -170,10 +188,11 @@ describe('Admin', () => {
       .delete('/api/v1/admin/announcements/1000')
       .set('Authorization', `Bearer ${admintoken}`)
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(404);
-        expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementDoesntExist);
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(404);
+        expect(error);
+        expect(error).to.equal(messages.announcementDoesntExist);
         done();
       });
   });
@@ -188,10 +207,11 @@ describe('Admin', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(201);
-        expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.announcementCreated);
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(201);
+        expect(message);
+        expect(message).to.equal(messages.announcementCreated);
         done();
       });
   });
@@ -203,10 +223,11 @@ describe('Admin', () => {
         announcementStatus: 'accepted',
       })
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(200);
-        expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.announcementUpdatetd);
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.announcementUpdatetd);
         done();
       });
   });
@@ -218,10 +239,11 @@ describe('Admin', () => {
         announcementStatus: 'accepted',
       })
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(404);
-        expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.announcementDoesntExist);
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(404);
+        expect(error);
+        expect(error).to.equal(messages.announcementDoesntExist);
         done();
       });
   });

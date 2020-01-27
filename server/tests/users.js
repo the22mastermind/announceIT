@@ -17,10 +17,11 @@ describe('GET /', () => {
     chai.request(app)
       .get('/')
       .end((err, res) => {
-        expect(res.status).to.equal(200);
+        const { status, message } = res.body;
+        expect(status).to.equal(200);
         expect(res.body).to.have.property('status');
         expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal(messages.welcomeMessage);
+        expect(message).to.equal(messages.welcomeMessage);
         done();
       });
   });
@@ -40,20 +41,32 @@ describe('User sign up', () => {
         confirmpassword: 'mugabojohn',
       })
       .end((err, res) => {
+        const {
+          id,
+          firstname,
+          lastname,
+          email,
+          phone,
+          address,
+          isAdmin,
+          status,
+          registered,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(201);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal(messages.successfulSignup);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data).to.have.property('firstname');
-        expect(res.body.data).to.have.property('lastname');
-        expect(res.body.data).to.have.property('email');
-        expect(res.body.data).to.have.property('phone');
-        expect(res.body.data).to.have.property('address');
-        expect(res.body.data).to.have.property('isAdmin');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data).to.have.property('registered');
+        expect(id);
+        expect(firstname);
+        expect(lastname);
+        expect(email);
+        expect(phone);
+        expect(address);
+        expect(isAdmin);
+        expect(isAdmin).to.be.a('boolean');
+        expect(status);
+        expect(registered);
         done();
       });
   });
@@ -70,10 +83,11 @@ describe('User sign up', () => {
         confirmpassword: 'mugabojohn',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.userExists);
+        expect(error).to.equal(messages.userExists);
         done();
       });
   });
@@ -89,10 +103,11 @@ describe('User sign up', () => {
         confirmpassword: 'mugabojohn',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.emptyFirstName);
+        expect(error).to.equal(messages.emptyFirstName);
         done();
       });
   });
@@ -109,10 +124,11 @@ describe('User sign up', () => {
         confirmpassword: 'hellothere',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.passwordsNoMatch);
+        expect(error).to.equal(messages.passwordsNoMatch);
         done();
       });
   });
@@ -129,10 +145,11 @@ describe('User sign up', () => {
         confirmpassword: 'mugabo',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.emptyEmail);
+        expect(error).to.equal(messages.emptyEmail);
         done();
       });
   });
@@ -149,10 +166,11 @@ describe('User sign up', () => {
         confirmpassword: 'mugabo',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.invalidEmail);
+        expect(error).to.equal(messages.invalidEmail);
         done();
       });
   });
@@ -169,10 +187,11 @@ describe('User sign up', () => {
         confirmpassword: 'mugabo',
       })
       .end((err, res) => {
+        const { status, error } = res.body;
         expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
+        expect(status).to.equal(400);
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.invalidFirstName);
+        expect(error).to.equal(messages.invalidFirstName);
         done();
       });
   });
@@ -192,20 +211,32 @@ describe('User sign in', () => {
         confirmpassword: 'mugabojohn',
       })
       .end((err, res) => {
+        const {
+          id,
+          firstname,
+          lastname,
+          email,
+          phone,
+          address,
+          isAdmin,
+          status,
+          registered,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(201);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal(messages.successfulSignup);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data).to.have.property('firstname');
-        expect(res.body.data).to.have.property('lastname');
-        expect(res.body.data).to.have.property('email');
-        expect(res.body.data).to.have.property('phone');
-        expect(res.body.data).to.have.property('address');
-        expect(res.body.data).to.have.property('isAdmin');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data).to.have.property('registered');
+        expect(id);
+        expect(firstname);
+        expect(lastname);
+        expect(email);
+        expect(phone);
+        expect(address);
+        expect(isAdmin);
+        expect(isAdmin).to.be.a('boolean');
+        expect(status);
+        expect(registered);
         done();
       });
   });
@@ -217,23 +248,35 @@ describe('User sign in', () => {
         password: 'mugabojohn',
       })
       .end((err, res) => {
-        // console.log(res.body);
+        const {
+          token,
+          id,
+          firstname,
+          lastname,
+          email,
+          phone,
+          address,
+          isAdmin,
+          status,
+          registered,
+        } = res.body.data;
         expect(res.body).to.have.property('status');
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal(messages.successfulLogin);
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('token');
-        expect(res.body.data).to.have.property('id');
-        expect(res.body.data).to.have.property('firstname');
-        expect(res.body.data).to.have.property('lastname');
-        expect(res.body.data).to.have.property('email');
-        expect(res.body.data).to.have.property('phone');
-        expect(res.body.data).to.have.property('address');
-        expect(res.body.data).to.have.property('isAdmin');
-        expect(res.body.data).to.have.property('status');
-        expect(res.body.data).to.have.property('registered');
-        expect(res.body.data.email).to.equal('hello@gmail.com');
+        expect(token);
+        expect(id);
+        expect(firstname);
+        expect(lastname);
+        expect(email);
+        expect(phone);
+        expect(address);
+        expect(isAdmin);
+        expect(isAdmin).to.be.a('boolean');
+        expect(status);
+        expect(registered);
+        expect(email).to.equal('hello@gmail.com');
         done();
       });
   });
@@ -245,10 +288,11 @@ describe('User sign in', () => {
         password: 'mugabooooo',
       })
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(401);
-        expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.invalidCredentials);
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(401);
+        expect(error);
+        expect(error).to.equal(messages.invalidCredentials);
         done();
       });
   });
@@ -260,10 +304,11 @@ describe('User sign in', () => {
         password: 'mugabooooo',
       })
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
-        expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.emptyEmail);
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.emptyEmail);
         done();
       });
   });
@@ -275,10 +320,11 @@ describe('User sign in', () => {
         password: '',
       })
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
-        expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.emptyPassword);
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.emptyPassword);
         done();
       });
   });
@@ -290,10 +336,11 @@ describe('User sign in', () => {
         password: '',
       })
       .end((err, res) => {
-        expect(res.body).to.have.property('status');
-        expect(res.status).to.equal(400);
-        expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal(messages.emptyEmail);
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.emptyEmail);
         done();
       });
   });
