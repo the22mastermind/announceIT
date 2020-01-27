@@ -190,6 +190,25 @@ describe('Advertiser', () => {
   it('Should return status code 400', (done) => {
     chai.request(app)
       .post('/api/v1/advertiser/announcement')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        title: '70% discount on all products',
+        description: "January 2020 promo. Discount of up to 50% on all our products. Come buy all house items, we've got you covered! Valid only from jan 1st to jan 31st",
+        startdate: '01-01-2030 12:15',
+        enddate: '01-01-2029 11:59',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(res.body).to.have.property('status');
+        expect(status).to.equal(400);
+        expect(res.body).to.have.property('error');
+        expect(error).to.equal(messages.expiredDates);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .post('/api/v1/advertiser/announcement')
       .set('Authorization', 'Bearer invalidkey')
       .send({
         title: '70% discount on all products',
