@@ -54,3 +54,15 @@ exports.fetchUserAnnouncement = (announcementId, creator) => {
   const announcement = models.announcements.find(({ id, owner }) => id === announcementId && owner === creator);
   return announcement;
 };
+
+// Check if user exists
+exports.userExists = (id) => {
+  const userData = models.users.find((user) => user.id === id);
+  return userData;
+};
+
+// Return error messages
+exports.returnError = (res, code, errorMessage) => res.status(code).json({
+  status: code,
+  error: errorMessage,
+});
