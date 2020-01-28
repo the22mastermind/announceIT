@@ -28,7 +28,7 @@ const create = () => {
       first_name varchar NOT NULL,
       last_name varchar NULL,
       email varchar UNIQUE NOT NULL,
-      phoneNumber varchar (13) UNIQUE NOT NULL,
+      phoneNumber varchar (13) NOT NULL,
       address varchar NOT NULL,
       password varchar NOT NULL,
       status varchar NOT NULL,
