@@ -7,16 +7,14 @@ import helper from '../helpers/helper';
 import validation from '../middleware/validation';
 import messages from '../utils/messages';
 import utils from '../utils/utils';
+import codes from '../utils/codes';
 
 // eslint-disable-next-line func-names
 exports.createAnnouncement = (req, res) => {
   // Joi Validation
   const { error } = validation.validateCreateAnnouncement(req.body);
   if (error) {
-    return res.status(400).json({
-      status: 400,
-      error: error.details[0].message,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
   }
   // Retrieve token info
   const token = req.headers.authorization.split(' ')[1];
@@ -36,26 +34,17 @@ exports.createAnnouncement = (req, res) => {
   // Check if dates are valid
   const areDatesValid = utils.checkDates(data.startdate, data.enddate);
   if (!areDatesValid) {
-    return res.status(400).json({
-      status: 400,
-      error: messages.expiredDates,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, messages.expiredDates);
   }
   // Check if user has permission to create announcements
   const hasPermission = utils.userCanCreateAnnouncements(data.owner);
   if (!hasPermission) {
-    return res.status(401).json({
-      status: 401,
-      error: messages.blacklisted,
-    });
+    return utils.returnError(res, codes.statusCodes.unauthorized, messages.blacklisted);
   }
   // Check if announcement exists already (title and creator)
   const announcement = utils.announcementExists(data.title, data.owner);
   if (announcement) {
-    return res.status(400).json({
-      status: 400,
-      error: messages.announcementExists,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, messages.announcementExists);
   }
   // Save announcement
   const newAnnouncement = {
@@ -80,10 +69,7 @@ exports.updateAnnouncement = (req, res) => {
   // Joi Validation
   const { error } = validation.validateUpdateAnnouncement(req.body);
   if (error) {
-    return res.status(400).json({
-      status: 400,
-      error: error.details[0].message,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
   }
   // Retrieve token info
   const token = req.headers.authorization.split(' ')[1];
@@ -100,26 +86,17 @@ exports.updateAnnouncement = (req, res) => {
   // Check if dates are valid
   const areDatesValid = utils.checkDates(data.startdate, data.enddate);
   if (!areDatesValid) {
-    return res.status(400).json({
-      status: 400,
-      error: messages.expiredDates,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, messages.expiredDates);
   }
   // Check if user has permission to update announcements
   const hasPermission = utils.userCanCreateAnnouncements(data.owner);
   if (!hasPermission) {
-    return res.status(401).json({
-      status: 401,
-      error: messages.notAllowed,
-    });
+    return utils.returnError(res, codes.statusCodes.unauthorized, messages.notAllowed);
   }
   // Check and retrieve announcement
   const announcement = utils.fetchUserAnnouncement(parseInt(data.announcementId, 10), data.owner);
   if (!announcement) {
-    return res.status(404).json({
-      status: 404,
-      error: messages.announcementNotFound,
-    });
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementNotFound);
   }
   // Update announcement
   const newAnnouncement = {
@@ -147,10 +124,7 @@ exports.viewSpecificAnnouncement = (req, res) => {
   // Check and retrieve announcement
   const announcement = utils.fetchAnnouncement(parseInt(announcementId, 10));
   if (!announcement) {
-    return res.status(404).json({
-      status: 404,
-      error: messages.announcementDoesntExist,
-    });
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
   }
   return res.status(200).json({
     status: 200,
@@ -168,10 +142,7 @@ exports.viewAnnouncementsOfState = (req, res) => {
   const announcements = utils.fetchAnnouncementsByStatus(announcementStatus);
   const myAnnouncements = announcements.filter(({ owner }) => owner === req.userData.id);
   if (announcements.length === 0 || myAnnouncements.length === 0) {
-    return res.status(404).json({
-      status: 404,
-      error: messages.announcementDoesntExist,
-    });
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
   }
   return res.status(200).json({
     status: 200,

@@ -7,6 +7,8 @@ import models from '../models/models';
 import helper from '../helpers/helper';
 import validation from '../middleware/validation';
 import messages from '../utils/messages';
+import utils from '../utils/utils';
+import codes from '../utils/codes';
 
 dotenv.config();
 
@@ -15,10 +17,7 @@ exports.userSignin = (req, res) => {
   // Joi Validation
   const { error } = validation.validateSignin(req.body);
   if (error) {
-    return res.status(400).json({
-      status: 400,
-      error: error.details[0].message,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
   }
   const data = {
     email: req.body.email.trim(),
@@ -27,10 +26,7 @@ exports.userSignin = (req, res) => {
   // Check if user has already signed up
   const myUser = models.users.find((user) => user.email === data.email);
   if (!myUser) {
-    return res.status(400).json({
-      status: 400,
-      error: messages.invalidCredentials,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, messages.invalidCredentials);
   }
   // Check if password is valid
   return bcrypt.compare(data.password, myUser.password, (err, result) => {
@@ -65,10 +61,7 @@ exports.userSignin = (req, res) => {
         },
       });
     }
-    return res.status(401).json({
-      status: 401,
-      error: messages.invalidCredentials,
-    });
+    return utils.returnError(res, codes.statusCodes.unauthorized, messages.invalidCredentials);
   });
 };
 
@@ -76,10 +69,7 @@ exports.userSignup = (req, res) => {
   // Joi Validation
   const { error } = validation.validateSignUp(req.body);
   if (error) {
-    return res.status(400).json({
-      status: 400,
-      error: error.details[0].message,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
   }
   const id = helper.getNewId(models.users);
   const data = {
@@ -95,18 +85,12 @@ exports.userSignup = (req, res) => {
   // Check if passwords are matching
   const match = helper.matchPasswords(data.password, data.confirmpassword);
   if (!match) {
-    return res.status(400).json({
-      status: 400,
-      error: messages.passwordsNoMatch,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, messages.passwordsNoMatch);
   }
   // Check if user has already signed up
   const myUser = models.users.find((user) => user.email === data.email);
   if (myUser) {
-    return res.status(400).json({
-      status: 400,
-      error: messages.userExists,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, messages.userExists);
   }
   // Encrypt password
   return bcrypt.hash(data.password, 10, (err, hash) => {

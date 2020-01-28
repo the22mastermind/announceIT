@@ -26,9 +26,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(401);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.noToken);
         done();
       });
@@ -47,9 +47,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, message } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(201);
-        expect(res.body).to.have.property('message');
+        expect(message);
         expect(message).to.equal(messages.successfulSignup);
         done();
       });
@@ -64,9 +64,9 @@ describe('Advertiser', () => {
       .end((err, res) => {
         const { status, message, data } = res.body;
         token = data.token;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(200);
-        expect(res.body).to.have.property('message');
+        expect(message);
         expect(message).to.equal(messages.successfulLogin);
         expect(data).to.have.property('token');
         done();
@@ -123,9 +123,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.announcementExists);
         done();
       });
@@ -142,9 +142,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.announcementEmptyTitle);
         done();
       });
@@ -161,9 +161,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.announcementInvalidTitle);
         done();
       });
@@ -180,9 +180,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.expiredDates);
         done();
       });
@@ -199,9 +199,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.expiredDates);
         done();
       });
@@ -218,9 +218,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.malformedToken);
         done();
       });
@@ -236,9 +236,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(401);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.noToken);
         done();
       });
@@ -289,9 +289,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.announcementEmptyDesc);
         done();
       });
@@ -307,9 +307,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.announcementInvalidDesc);
         done();
       });
@@ -325,9 +325,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.expiredDates);
         done();
       });
@@ -343,9 +343,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.malformedToken);
         done();
       });
@@ -356,10 +356,23 @@ describe('Advertiser', () => {
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(404);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.announcementDoesntExist);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .get('/api/v1/advertiser/announcement/invalidId')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.invalidAnnouncementId);
         done();
       });
   });
@@ -440,9 +453,9 @@ describe('Advertiser', () => {
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(404);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.announcementDoesntExist);
         done();
       });
@@ -453,9 +466,9 @@ describe('Advertiser', () => {
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.invalidAnnouncementStatus);
         done();
       });
@@ -614,9 +627,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, message } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(201);
-        expect(res.body).to.have.property('message');
+        expect(message);
         expect(message).to.equal(messages.successfulSignup);
         done();
       });
@@ -631,9 +644,9 @@ describe('Advertiser', () => {
       .end((err, res) => {
         const { status, message, data } = res.body;
         anotherUserToken = data.token;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(200);
-        expect(res.body).to.have.property('message');
+        expect(message);
         expect(message).to.equal(messages.successfulLogin);
         expect(data).to.have.property('token');
         done();
@@ -645,9 +658,9 @@ describe('Advertiser', () => {
       .set('Authorization', `Bearer ${anotherUserToken}`)
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(404);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.announcementDoesntExist);
         done();
       });
@@ -738,9 +751,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(400);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.announcementEmptyDesc);
         done();
       });
@@ -756,9 +769,9 @@ describe('Advertiser', () => {
       })
       .end((err, res) => {
         const { status, error } = res.body;
-        expect(res.body).to.have.property('status');
+        expect(status);
         expect(status).to.equal(404);
-        expect(res.body).to.have.property('error');
+        expect(error);
         expect(error).to.equal(messages.announcementNotFound);
         done();
       });

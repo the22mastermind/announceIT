@@ -198,6 +198,22 @@ describe('User sign up', () => {
 });
 
 describe('User sign in', () => {
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'hello@gmail.com',
+        password: 'mugabojohn',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.invalidCredentials);
+        done();
+      });
+  });
   it('Should return status code 201', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
