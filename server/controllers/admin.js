@@ -68,22 +68,22 @@ exports.blacklistUser = (req, res) => {
   // Joi Validation
   const { error } = validation.validateUserStatus(req.body);
   if (error) {
-    return utils.returnError(res, codes.statusCodes[400], error.details[0].message);
+    return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
   }
   const { id } = req.params;
   const { userStatus } = req.body;
   // Check if user exists
   const user = utils.userExists(parseInt(id, 10));
   if (!user) {
-    return utils.returnError(res, codes.statusCodes[404], messages.userDoesntExist);
+    return utils.returnError(res, codes.statusCodes.notFound, messages.userDoesntExist);
   }
   // If user exists, check if they are not already blacklisted
   if (user.status === 'blacklisted' && userStatus === 'blacklisted') {
-    return utils.returnError(res, codes.statusCodes[409], messages.userIsBlacklisted);
+    return utils.returnError(res, codes.statusCodes.conflict, messages.userIsBlacklisted);
   }
   // If user exists, check if they are not already whitelisted
   if (user.status === 'active' && userStatus === 'active') {
-    return utils.returnError(res, codes.statusCodes[409], messages.userIsActive);
+    return utils.returnError(res, codes.statusCodes.conflict, messages.userIsActive);
   }
   // Update user status
   user.status = userStatus;

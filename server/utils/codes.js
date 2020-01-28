@@ -1,8 +1,9 @@
 exports.statusCodes = {
-  200: 200,
-  201: 201,
-  400: 400,
-  404: 404,
-  409: 409,
-  500: 500,
+  success: 200,
+  created: 201,
+  badRequest: 400,
+  unauthorized: 401,
+  notFound: 404,
+  conflict: 409,
+  internal: 500,
 };

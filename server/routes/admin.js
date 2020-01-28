@@ -10,6 +10,6 @@ const router = express.Router();
 router.get('/announcements', authenticate, isUserAdmin, controller.viewAllUsersAnnouncements);
 router.delete('/announcements/:announcementId', authenticate, isUserAdmin, checkId, controller.deleteAnnouncement);
 router.patch('/announcements/:announcementId', authenticate, isUserAdmin, checkId, controller.changeAnnouncementStatus);
-router.patch('/users/:id', authenticate, isUserAdmin, checkUserId, controller.blacklistUser);
+router.patch('/users/:id', authenticate, isUserAdmin, checkUserId.checkUserId, controller.blacklistUser);
 
 export default router;

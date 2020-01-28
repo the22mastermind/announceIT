@@ -1,14 +1,13 @@
 import validation from './validation';
 import messages from '../utils/messages';
+import utils from '../utils/utils';
+import codes from '../utils/codes';
 
-module.exports = (req, res, next) => {
+exports.checkUserId = (req, res, next) => {
   // Check if userid is an integer
   const { error } = validation.validateUserId(req.params);
   if (error) {
-    return res.status(400).json({
-      status: 400,
-      error: messages.invalidUserId,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, messages.invalidUserId);
   }
   next();
 };
