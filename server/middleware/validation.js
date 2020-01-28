@@ -89,6 +89,30 @@ function validateState(state) {
   return Joi.validate(state, schema, options);
 }
 
+function validateUserId(id) {
+  const schema = {
+    id: Joi.number().min(1).required(),
+  };
+  const options = {
+    language: {
+      key: '{{key}} ',
+    },
+  };
+  return Joi.validate(id, schema, options);
+}
+
+function validateUserStatus(state) {
+  const schema = {
+    userStatus: Joi.string().valid(['blacklisted', 'active']).required(),
+  };
+  const options = {
+    language: {
+      key: '{{key}} ',
+    },
+  };
+  return Joi.validate(state, schema, options);
+}
+
 export default {
   validateSignin,
   validateSignUp,
@@ -96,4 +120,6 @@ export default {
   validateUpdateAnnouncement,
   validateId,
   validateState,
+  validateUserId,
+  validateUserStatus,
 };

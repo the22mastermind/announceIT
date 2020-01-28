@@ -247,4 +247,116 @@ describe('Admin', () => {
         done();
       });
   });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .patch('/api/v1/admin/users/1')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'another status',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.invalidUserStatus);
+        done();
+      });
+  });
+  it('Should return status code 404', (done) => {
+    chai.request(app)
+      .patch('/api/v1/admin/users/199')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'active',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(404);
+        expect(error);
+        expect(error).to.equal(messages.userDoesntExist);
+        done();
+      });
+  });
+  it('Should return status code 409', (done) => {
+    chai.request(app)
+      .patch('/api/v1/admin/users/1')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'active',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(409);
+        expect(error);
+        expect(error).to.equal(messages.userIsActive);
+        done();
+      });
+  });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .patch('/api/v1/admin/users/1')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'blacklisted',
+      })
+      .end((err, res) => {
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.userStatusUpdateSuccessful);
+        done();
+      });
+  });
+  it('Should return status code 409', (done) => {
+    chai.request(app)
+      .patch('/api/v1/admin/users/1')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'blacklisted',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(409);
+        expect(error);
+        expect(error).to.equal(messages.userIsBlacklisted);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .patch('/api/v1/admin/users/invalidId')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'blacklisted',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.invalidUserId);
+        done();
+      });
+  });
+  it('Should return status code 401', (done) => {
+    chai.request(app)
+      .patch('/api/v1/admin/users/invalidId')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userStatus: 'blacklisted',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(401);
+        expect(error);
+        expect(error).to.equal(messages.noAminRights);
+        done();
+      });
+  });
 });
