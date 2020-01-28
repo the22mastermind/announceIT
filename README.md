@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/the22mastermind/announceIT.svg?branch=ft-user-signup-endpoint-170816210)](https://travis-ci.com/the22mastermind/announceIT)    [![Coverage Status](https://coveralls.io/repos/github/the22mastermind/announceIT/badge.svg?branch=ft-user-signup-endpoint-170816210)](https://coveralls.io/github/the22mastermind/announceIT?branch=ft-user-signup-endpoint-170816210)    [![Maintainability](https://api.codeclimate.com/v1/badges/9ec457ea535343b7424b/maintainability)](https://codeclimate.com/github/the22mastermind/announceIT/maintainability)
+[![Build Status](https://travis-ci.com/the22mastermind/announceIT.svg?branch=ft-user-signup-endpoint-170816210)](https://travis-ci.com/the22mastermind/announceIT)    [![Coverage Status](https://coveralls.io/repos/github/the22mastermind/announceIT/badge.svg?branch=develop)](https://coveralls.io/github/the22mastermind/announceIT?branch=develop)    [![Maintainability](https://api.codeclimate.com/v1/badges/9ec457ea535343b7424b/maintainability)](https://codeclimate.com/github/the22mastermind/announceIT/maintainability)
 
 
 # announceIT
