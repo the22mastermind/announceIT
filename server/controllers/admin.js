@@ -10,10 +10,7 @@ exports.viewAllUsersAnnouncements = (req, res) => {
   // Retrieve announcements
   const { announcements } = models;
   if (announcements.length === 0) {
-    return res.status(404).json({
-      status: 404,
-      error: messages.announcementDoesntExist,
-    });
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
   }
   return res.status(200).json({
     status: 200,
@@ -26,10 +23,7 @@ exports.deleteAnnouncement = (req, res) => {
   // Check and retrieve announcement
   const announcement = utils.fetchAnnouncement(parseInt(announcementId, 10));
   if (!announcement) {
-    return res.status(404).json({
-      status: 404,
-      error: messages.announcementDoesntExist,
-    });
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
   }
   const index = models.announcements.indexOf(announcement);
   models.announcements.splice(index, 1);
@@ -43,19 +37,13 @@ exports.changeAnnouncementStatus = (req, res) => {
   // Joi Validation
   const { error } = validation.validateState(req.body);
   if (error) {
-    return res.status(400).json({
-      status: 400,
-      error: error.details[0].message,
-    });
+    return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
   }
   const { announcementId } = req.params;
   // Check and retrieve announcement
   const announcement = utils.fetchAnnouncement(parseInt(announcementId, 10));
   if (!announcement) {
-    return res.status(404).json({
-      status: 404,
-      error: messages.announcementDoesntExist,
-    });
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
   }
   announcement.status = req.body.announcementStatus;
   return res.status(200).json({

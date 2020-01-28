@@ -1,6 +1,8 @@
 /* eslint-disable consistent-return */
 import jwt from 'jsonwebtoken';
 import messages from '../utils/messages';
+import utils from '../utils/utils';
+import codes from '../utils/codes';
 
 module.exports = (req, res, next) => {
   try {
@@ -10,15 +12,10 @@ module.exports = (req, res, next) => {
       req.userData = decoded;
       next();
     } else {
-      return res.status(401).json({
-        status: 401,
-        error: messages.noToken,
-      });
+      return utils.returnError(res, codes.statusCodes.unauthorized, messages.noToken);
     }
   } catch (error) {
-    return res.status(400).json({
-      status: 400,
-      error: `Authentication failed. ${error.name} ${error.message}`,
-    });
+    const errorMessage = `Authentication failed. ${error.name} ${error.message}`;
+    return utils.returnError(res, codes.statusCodes.badRequest, errorMessage);
   }
 };

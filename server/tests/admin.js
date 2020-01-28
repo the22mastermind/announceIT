@@ -10,6 +10,8 @@ dotenv.config();
 const { expect } = chai;
 let token = '';
 let admintoken = '';
+let advertiserId = null;
+let announcementId = null;
 chai.use(chaiHttp);
 chai.should();
 
@@ -100,6 +102,7 @@ describe('Admin', () => {
       .end((err, res) => {
         const { status, message } = res.body;
         token = res.body.data.token;
+        advertiserId = res.body.data.id;
         expect(status);
         expect(status).to.equal(200);
         expect(message);
@@ -231,6 +234,22 @@ describe('Admin', () => {
         done();
       });
   });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .patch('/api/v1/admin/announcements/1')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        announcementStatus: 'an invalid status',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.invalidAnnouncementStatus);
+        done();
+      });
+  });
   it('Should return status code 404', (done) => {
     chai.request(app)
       .patch('/api/v1/admin/announcements/1000')
@@ -281,7 +300,7 @@ describe('Admin', () => {
   });
   it('Should return status code 409', (done) => {
     chai.request(app)
-      .patch('/api/v1/admin/users/1')
+      .patch(`/api/v1/admin/users/${advertiserId}`)
       .set('Authorization', `Bearer ${admintoken}`)
       .send({
         userStatus: 'active',
@@ -297,7 +316,7 @@ describe('Admin', () => {
   });
   it('Should return status code 200', (done) => {
     chai.request(app)
-      .patch('/api/v1/admin/users/1')
+      .patch(`/api/v1/admin/users/${advertiserId}`)
       .set('Authorization', `Bearer ${admintoken}`)
       .send({
         userStatus: 'blacklisted',
@@ -313,7 +332,7 @@ describe('Admin', () => {
   });
   it('Should return status code 409', (done) => {
     chai.request(app)
-      .patch('/api/v1/admin/users/1')
+      .patch(`/api/v1/admin/users/${advertiserId}`)
       .set('Authorization', `Bearer ${admintoken}`)
       .send({
         userStatus: 'blacklisted',
@@ -356,6 +375,43 @@ describe('Admin', () => {
         expect(status).to.equal(401);
         expect(error);
         expect(error).to.equal(messages.noAminRights);
+        done();
+      });
+  });
+  it('Should return status code 401', (done) => {
+    chai.request(app)
+      .post('/api/v1/advertiser/announcement')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        title: '17% discount on all products',
+        description: "January 2020 promo. Discount of up to 50% on all our products. Come buy all house items, we've got you covered! Valid only from jan 1st to jan 31st",
+        startdate: '02-23-2030 12:15',
+        enddate: '02-25-2030 11:59',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(401);
+        expect(error);
+        expect(error).to.equal(messages.blacklisted);
+        done();
+      });
+  });
+  it('Should return status code 401', (done) => {
+    chai.request(app)
+      .patch('/api/v1/advertiser/announcement/1')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        description: "January 2020 promo. Discount of up to 50% on all our products. Come buy all house items, we've got you covered! Valid only from jan 1st to jan 31st",
+        startdate: '02-23-2030 12:15',
+        enddate: '02-25-2030 11:59',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(401);
+        expect(error);
+        expect(error).to.equal(messages.notAllowed);
         done();
       });
   });
