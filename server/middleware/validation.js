@@ -1,19 +1,5 @@
 import Joi from '@hapi/joi';
 
-function validateSignin(user) {
-  const schema = {
-    email: Joi.string().email({ minDomainSegments: 2 }).required(),
-    password: Joi.string().regex(/^[a-zA-Z0-9] |[a-zA-Z0-9]+$/).min(8).max(15)
-      .required(),
-  };
-  const options = {
-    language: {
-      key: '{{key}} ',
-    },
-  };
-  return Joi.validate(user, schema, options);
-}
-
 function validateSignUp(user) {
   const schema = {
     firstname: Joi.string().min(3).max(30).required(),
@@ -36,90 +22,6 @@ function validateSignUp(user) {
   return Joi.validate(user, schema, options);
 }
 
-function validateCreateAnnouncement(data) {
-  const schema = {
-    title: Joi.string().min(10).max(30).required(),
-    description: Joi.string().min(100).max(1000).required(),
-    startdate: Joi.string().min(10).max(16).required(),
-    enddate: Joi.string().min(10).max(16).required(),
-  };
-  const options = {
-    language: {
-      key: '{{key}} ',
-    },
-  };
-  return Joi.validate(data, schema, options);
-}
-
-function validateUpdateAnnouncement(data) {
-  const schema = {
-    description: Joi.string().min(100).max(1000).required(),
-    startdate: Joi.string().min(10).max(16).required(),
-    enddate: Joi.string().min(10).max(16).required(),
-  };
-  const options = {
-    language: {
-      key: '{{key}} ',
-    },
-  };
-  return Joi.validate(data, schema, options);
-}
-
-function validateId(id) {
-  const schema = {
-    announcementId: Joi.number().min(1).max(100000).required(),
-  };
-  const options = {
-    language: {
-      key: '{{key}} ',
-    },
-  };
-  return Joi.validate(id, schema, options);
-}
-
-function validateState(state) {
-  const schema = {
-    announcementStatus: Joi.string().valid(['pending', 'accepted', 'declined', 'active', 'deactivated']).required(),
-  };
-  const options = {
-    language: {
-      key: '{{key}} ',
-    },
-  };
-  return Joi.validate(state, schema, options);
-}
-
-function validateUserId(id) {
-  const schema = {
-    id: Joi.number().min(1).required(),
-  };
-  const options = {
-    language: {
-      key: '{{key}} ',
-    },
-  };
-  return Joi.validate(id, schema, options);
-}
-
-function validateUserStatus(state) {
-  const schema = {
-    userStatus: Joi.string().valid(['blacklisted', 'active']).required(),
-  };
-  const options = {
-    language: {
-      key: '{{key}} ',
-    },
-  };
-  return Joi.validate(state, schema, options);
-}
-
 export default {
-  validateSignin,
   validateSignUp,
-  validateCreateAnnouncement,
-  validateUpdateAnnouncement,
-  validateId,
-  validateState,
-  validateUserId,
-  validateUserStatus,
 };

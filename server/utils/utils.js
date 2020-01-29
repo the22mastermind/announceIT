@@ -1,68 +1,9 @@
-import moment from 'moment';
-import models from '../models/models';
-
-// Check if user has permission to create announcements
-exports.userCanCreateAnnouncements = (id) => {
-  const myUser = models.users.find((user) => user.id === id && user.status === 'active');
-  if (myUser) {
-    return true;
-  }
-  return false;
-};
-
-// Check if announcement exists (title and creator)
-exports.announcementExists = (newTitle, creator) => {
-  const announcement = models.announcements.find(({ title, owner }) => title === newTitle && owner === creator);
-  if (announcement) {
-    return true;
-  }
-  return false;
-};
-
-// Check if startdate and enddate are not in the past
-exports.checkDates = (start, end) => {
-  const now = moment().add(15, 'minutes');
-  if (start < moment(now).format('x') || end < moment(now).format('x')) {
-    return false;
-  }
-  if (start > end) {
-    return false;
-  }
-  return true;
-};
-
-// Check if announcement exists (id)
-exports.fetchAnnouncement = (announcementId) => {
-  const announcement = models.announcements.find(({ id }) => id === announcementId);
-  return announcement;
-};
-
-// Retrieve announcements of a specific status
-exports.fetchAnnouncementsByStatus = (state) => {
-  const announcements = models.announcements.filter(({ status }) => status === state);
-  return announcements;
-};
-
-// Retrieve announcements of a specific status
-exports.fetchAllMyAnnouncements = (id) => {
-  const announcements = models.announcements.filter(({ owner }) => owner === id);
-  return announcements;
-};
-
-// Fetch user announcement (announcementId, owner)
-exports.fetchUserAnnouncement = (announcementId, creator) => {
-  const announcement = models.announcements.find(({ id, owner }) => id === announcementId && owner === creator);
-  return announcement;
-};
-
-// Check if user exists
-exports.userExists = (id) => {
-  const userData = models.users.find((user) => user.id === id);
-  return userData;
-};
-
 // Return error messages
-exports.returnError = (res, code, errorMessage) => res.status(code).json({
+const returnError = (res, code, errorMessage) => res.status(code).json({
   status: code,
   error: errorMessage,
 });
+
+export default {
+  returnError,
+};

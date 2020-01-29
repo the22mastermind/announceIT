@@ -6,7 +6,8 @@
   "scripts": {
     "drop-tables": "babel-node ./server/config/tables drop",
     "create-tables": "babel-node ./server/config/tables create",
-    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register server/tests/*.js --exit",
+    "purge": "npm run drop-tables && npm run create-tables",
+    "test": "npm run purge && nyc --reporter=html --reporter=text mocha --require @babel/register server/tests_ch3/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "dev": "nodemon --require 'dotenv/config' --exec babel-node ./server/index.js",
     "clean": "rm -rf build && mkdir build",
