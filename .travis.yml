@@ -8,7 +8,6 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database announceit_test;' -U postgres
-  - npm run test-db
 script:
   - npm run test-live
 after_success: 
