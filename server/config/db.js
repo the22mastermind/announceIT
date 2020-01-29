@@ -1,8 +1,5 @@
 /* eslint-disable import/no-mutable-exports */
 import pg from 'pg';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 let connection = '';
 
