@@ -5,8 +5,7 @@ cache:
   directories:
     - "node_modules"
 before_script:
-  - sudo -u postgres psql -c 'CREATE DATABASE announceit_test;'
-  - npm run create-tables
+  - psql -u postgres -c 'CREATE DATABASE announceit_test;'
 script:
   - npm run test-live
 after_success: 
