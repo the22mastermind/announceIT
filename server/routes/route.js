@@ -12,6 +12,6 @@ router.use('/api/v1/advertiser', advertiserRoutes);
 router.use('/api/v1/admin', adminrRoutes);
 // Challenge 3 routes
 router.use('/api/v2/auth', user);
-router.use('/api/v2/auth', advertiser);
+router.use('/api/v2/advertiser', advertiser);
 
 export default router;

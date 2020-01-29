@@ -53,10 +53,32 @@ const saveAnnouncement = async (data) => {
   return announcement;
 };
 
+const fetchMyAnnouncement = async (id, owner) => {
+  const announcement = await pool.query('SELECT * FROM announcements WHERE id=$1 and owner=$2', [id, owner]);
+  if (announcement.rows.length !== 0) {
+    return true;
+  }
+  return false;
+};
+
+const updateAnnouncement = async (data) => {
+  const announcement = await pool.query('UPDATE announcements SET text=$1,start_date=$2,end_date=$3 WHERE id=$4 and owner=$5 RETURNING*',
+    [
+      data.description,
+      data.startdate,
+      data.enddate,
+      data.announcementId,
+      data.owner,
+    ]);
+  return announcement;
+};
+
 export default {
   isUserRegistered,
   signupUser,
   canCreateUpdateAnnouncements,
   doesAnnouncementExists,
   saveAnnouncement,
+  fetchMyAnnouncement,
+  updateAnnouncement,
 };
