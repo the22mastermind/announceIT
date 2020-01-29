@@ -9,6 +9,6 @@ services:
 before_script:
   - psql -c 'create database announceit;' -U postgres
 script:
-  - npm run test-live
+  - npm run test
 after_success: 
   - npm run coverage
