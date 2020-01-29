@@ -55,6 +55,7 @@ const createAnnouncement = async (req, res) => {
 // Shared functionality
 const viewSpecificAnnouncement = async (req, res) => {
   const { announcementId } = req.params;
+  console.log('>>>>>> ', announcementId);
   // Check and retrieve announcement
   const announcement = queries.retrieveAnnouncement(parseInt(announcementId, 10));
   if (announcement.rows.length === 0) {
