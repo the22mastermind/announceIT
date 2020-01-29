@@ -5,7 +5,7 @@ cache:
   directories:
     - "node_modules"
 before_script:
-  - psql -c 'CREATE DATABASE announceit_test;' -U postgres
+  - npm run test-db-live
 script:
   - npm run test-live
 after_success: 
