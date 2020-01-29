@@ -53,10 +53,18 @@ const saveAnnouncement = async (data) => {
   return announcement;
 };
 
+const retrieveAnnouncement = async (id) => {
+  const announcement = await pool.query('SELECT * FROM announcements WHERE id=$1', [id]);
+  console.log(announcement.rows);
+  console.log('=====================');
+  return announcement.rows;
+};
+
 export default {
   isUserRegistered,
   signupUser,
   canCreateUpdateAnnouncements,
   doesAnnouncementExists,
   saveAnnouncement,
+  retrieveAnnouncement,
 };
