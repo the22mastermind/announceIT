@@ -48,7 +48,6 @@ const saveAnnouncement = async (data) => {
       data.status,
       data.owner,
       data.createdon,
-
     ]);
   return announcement;
 };

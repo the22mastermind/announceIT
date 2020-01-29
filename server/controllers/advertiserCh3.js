@@ -7,6 +7,7 @@ import messages from '../utils/messages';
 import utils from '../utils/utils';
 import codes from '../utils/codes';
 import queries from '../utils/queries';
+import auth from '../middleware/auth';
 
 // eslint-disable-next-line func-names
 const createAnnouncement = async (req, res) => {
@@ -16,16 +17,14 @@ const createAnnouncement = async (req, res) => {
     return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
   }
   // Retrieve token info
-  const token = req.headers.authorization.split(' ')[1];
-  const decoded = jwt.verify(token, process.env.JWT_KEY);
-  req.userData = decoded;
+  const myToken = await auth.myToken(req);
   const data = {
     title: req.body.title.trim(),
     description: req.body.description.trim(),
     startdate: moment(req.body.startdate.trim(), 'MM-DD-YYYY HH:mm').format('x'),
     enddate: moment(req.body.enddate.trim(), 'MM-DD-YYYY HH:mm').format('x'),
     status: 'pending',
-    owner: req.userData.id,
+    owner: myToken.id,
     createdon: moment().format('LLLL'),
   };
   // Check if dates are valid
@@ -59,15 +58,13 @@ const updateAnnouncement = async (req, res) => {
     return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
   }
   // Retrieve token info
-  const token = req.headers.authorization.split(' ')[1];
-  const decoded = jwt.verify(token, process.env.JWT_KEY);
-  req.userData = decoded;
+  const myToken = await auth.myToken(req);
   // Generate new id
   const data = {
     description: req.body.description.trim(),
     startdate: moment(req.body.startdate.trim(), 'MM-DD-YYYY HH:mm').format('x'),
     enddate: moment(req.body.enddate.trim(), 'MM-DD-YYYY HH:mm').format('x'),
-    owner: req.userData.id,
+    owner: myToken.id,
     announcementId: req.params.id,
   };
   // Check if dates are valid
