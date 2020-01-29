@@ -8,21 +8,6 @@ const { expect } = chai;
 chai.use(chaiHttp);
 chai.should();
 
-describe('GET /', () => {
-  it('Should return status code 200 and message', (done) => {
-    chai.request(app)
-      .get('/')
-      .end((err, res) => {
-        const { status, message } = res.body;
-        expect(status).to.equal(200);
-        expect(res.body).to.have.property('status');
-        expect(res.body).to.have.property('message');
-        expect(message).to.equal(messages.welcomeMessage);
-        done();
-      });
-  });
-});
-
 describe('User sign up', () => {
   it('Should return status code 201', (done) => {
     chai.request(app)
