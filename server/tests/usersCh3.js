@@ -26,7 +26,7 @@ describe('GET /', () => {
 describe('User sign up', () => {
   it('Should return status code 201', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send({
         firstname: 'John',
         lastname: 'Mugabo',
@@ -68,7 +68,7 @@ describe('User sign up', () => {
   });
   it('Should return status code 400', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send({
         firstname: 'John',
         lastname: 'Mugabo',
@@ -89,7 +89,7 @@ describe('User sign up', () => {
   });
   it('Should return status code 400', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send({
         lastname: 'Mugabo',
         email: 'mugabo@gmail.com',
@@ -109,7 +109,7 @@ describe('User sign up', () => {
   });
   it('Should return status code 400', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send({
         firstname: 'John',
         lastname: 'Mugabo',
@@ -130,7 +130,7 @@ describe('User sign up', () => {
   });
   it('Should return status code 400', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send({
         firstname: 'Mugabo',
         lastname: 'John',
@@ -151,7 +151,7 @@ describe('User sign up', () => {
   });
   it('Should return status code 400', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send({
         firstname: 'Mugabo',
         lastname: 'John',
@@ -172,7 +172,7 @@ describe('User sign up', () => {
   });
   it('Should return status code 400', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .send({
         firstname: 'M',
         lastname: 'John',
