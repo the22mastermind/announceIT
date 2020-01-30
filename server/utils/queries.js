@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 import pool from '../config/db';
 
 const isUserRegistered = async (email) => {
@@ -27,7 +28,14 @@ const signupUser = async (data) => {
 
 const canCreateUpdateAnnouncements = async (id) => {
   const user = await pool.query('SELECT status FROM users WHERE id=$1', [id]);
-  return user.rows[0].status;
+  // return user.rows[0].status;
+  if (user.rows.length === 0) {
+    return false;
+  } else if (user.rows[0].status === 'blacklisted') {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 const doesAnnouncementExists = async (title, owner) => {
@@ -94,7 +102,7 @@ const fetchAllMyAnnouncements = async (id) => {
 };
 
 const fetchAllUsersAnnouncements = async () => {
-  const announcements = await pool.query('SELECT * FROM announcements');
+  const announcements = await pool.query('SELECT * FROM announcements ORDER BY createdon DESC');
   return announcements;
 };
 

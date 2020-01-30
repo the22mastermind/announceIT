@@ -38,8 +38,14 @@ const createAnnouncement = async (req, res) => {
   if (announcement) {
     return utils.returnError(res, codes.statusCodes.badRequest, messages.announcementExists);
   }
+  const { startdate, enddate, ...temp } = data;
+  const newData = {
+    ...temp,
+    startdate: moment(data.startdate, 'x').format('YYYY-MM-DD HH:mm'),
+    enddate: moment(data.enddate, 'x').format('YYYY-MM-DD HH:mm'),
+  };
   // Save announcement
-  const newAnnouncement = await queries.saveAnnouncement(data);
+  const newAnnouncement = await queries.saveAnnouncement(newData);
   return res.status(201).json({
     status: 201,
     message: messages.announcementCreated,
@@ -75,8 +81,14 @@ const updateAnnouncement = async (req, res) => {
   if (!announcement) {
     return utils.returnError(res, codes.statusCodes.notFound, messages.announcementNotFound);
   }
+  const { startdate, enddate, ...temp } = data;
+  const newData = {
+    ...temp,
+    startdate: moment(data.startdate, 'x').format('YYYY-MM-DD HH:mm'),
+    enddate: moment(data.enddate, 'x').format('YYYY-MM-DD HH:mm'),
+  };
   // Update announcement
-  const updateAnnouncement = await queries.updateAnnouncement(data);
+  const updateAnnouncement = await queries.updateAnnouncement(newData);
   return res.status(200).json({
     status: 200,
     message: messages.announcementUpdatetd,
