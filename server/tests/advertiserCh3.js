@@ -447,6 +447,19 @@ describe('Advertiser V2', () => {
         expect(owner).to.be.a('number');
         expect(createdon);
         done();
+    });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .get('/api/v2/advertiser/announcement/invalidId')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.invalidAnnouncementId);
+        done();
       });
   });
   it('Should return status code 200', (done) => {

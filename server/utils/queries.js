@@ -72,9 +72,20 @@ const updateAnnouncement = async (data) => {
   return announcement;
 };
 
-const retrieveAnnouncement = async (id) => {
+const retrieveAnnouncement = async (id, owner) => {
+  const announcement = await pool.query('SELECT * FROM announcements WHERE id=$1 and owner=$2', [id, owner]);
+  return announcement;
+};
+
+const checkAnnouncement = async (id) => {
   const announcement = await pool.query('SELECT * FROM announcements WHERE id=$1', [id]);
-  return announcement.rows;
+  return announcement;
+};
+
+const dropAnnouncement = async (id) => {
+  const announcement = await pool.query('DELETE FROM announcements WHERE id=$1 RETURNING*',
+    [id]);
+  return announcement;
 };
 
 const fetchAllMyAnnouncements = async (id) => {
@@ -91,4 +102,7 @@ export default {
   fetchMyAnnouncement,
   updateAnnouncement,
   fetchAllMyAnnouncements,
+  retrieveAnnouncement,
+  checkAnnouncement,
+  dropAnnouncement,
 };

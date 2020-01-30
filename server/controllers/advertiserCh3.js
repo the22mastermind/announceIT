@@ -105,8 +105,23 @@ const viewAllAnnouncements = async (req, res) => {
   });
 };
 
+const viewSpecificAnnouncement = async (req, res) => {
+  // Retrieve token info
+  const { announcementId } = req.params;
+  // Check and retrieve announcement
+  const announcement = await queries.retrieveAnnouncement(parseInt(announcementId, 10), req.userData.id);
+  if (announcement.rows.length === 0) {
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
+  }
+  return res.status(200).json({
+    status: 200,
+    data: announcement.rows[0],
+  });
+};
+
 export default {
   createAnnouncement,
   updateAnnouncement,
   viewAllAnnouncements,
+  viewSpecificAnnouncement,
 };
