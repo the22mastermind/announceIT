@@ -9,6 +9,8 @@ const { expect } = chai;
 let token = '';
 let admintoken = '';
 let advertiserId = '';
+let announcementId = '';
+
 chai.use(chaiHttp);
 chai.should();
 
@@ -119,6 +121,7 @@ describe('Admin V2', () => {
         enddate: '02-25-2020 11:59',
       })
       .end((err, res) => {
+        announcementId = res.body.data.id;
         const { status, message } = res.body;
         expect(status);
         expect(status).to.equal(201);
@@ -167,6 +170,33 @@ describe('Admin V2', () => {
         expect(owner);
         expect(owner).to.be.a('number');
         expect(createdon);
+      done();
+      });
+  });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .delete(`/api/v2/admin/announcements/${announcementId}`)
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        const { status, message, data } = res.body;
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.announcementDeleted);
+        expect(data);
+        done();
+      });
+  });
+  it('Should return status code 404', (done) => {
+    chai.request(app)
+      .delete('/api/v2/admin/announcements/1000')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(404);
+        expect(error);
+        expect(error).to.equal(messages.announcementDoesntExist);
         done();
       });
   });

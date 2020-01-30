@@ -15,6 +15,23 @@ const viewAllUsersAnnouncements = async (req, res) => {
   });
 };
 
+const deleteAnnouncement = async (req, res) => {
+  const { announcementId } = req.params;
+  // Check and retrieve announcement
+  const announcement = await queries.checkAnnouncement(parseInt(announcementId, 10));
+  if (announcement.rows.length === 0) {
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
+  }
+  // Delete announcement
+  const delAnnnouncement = await queries.dropAnnouncement(parseInt(announcementId, 10));
+  return res.status(200).json({
+    status: 200,
+    message: messages.announcementDeleted,
+    data: delAnnnouncement.rows[0],
+  });
+};
+
 export default {
   viewAllUsersAnnouncements,
+  deleteAnnouncement,
 };
