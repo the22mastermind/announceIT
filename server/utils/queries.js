@@ -115,6 +115,20 @@ const updateAnnouncementStatus = async (announcementStatus, announcementId) => {
   return announcement;
 };
 
+const doesUserExist = async (id, role) => {
+  const user = await pool.query('SELECT * FROM users WHERE id=$1 and isadmin!=$2', [id, role]);
+  return user;
+};
+
+const updateUserStatus = async (newStatus, id) => {
+  const user = await pool.query('UPDATE users SET status=$1 WHERE id=$2 RETURNING*',
+    [
+      newStatus,
+      id,
+    ]);
+  return user;
+};
+
 export default {
   isUserRegistered,
   signupUser,
@@ -129,4 +143,6 @@ export default {
   checkAnnouncement,
   dropAnnouncement,
   updateAnnouncementStatus,
+  doesUserExist,
+  updateUserStatus,
 };

@@ -271,4 +271,140 @@ describe('Admin V2', () => {
         done();
       });
   });
+  // Change user status
+  it('Should return status code 201', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signup')
+      .send({
+        firstname: 'John',
+        lastname: 'Mugabo',
+        email: 'janet@gmail.com',
+        phone: '+250787770000',
+        address: 'Kigali, Rwanda',
+        password: 'mugabojohn',
+        confirmpassword: 'mugabojohn',
+      })
+      .end((err, res) => {
+        const { status, message } = res.body;
+        advertiserId = res.body.data.id;
+        expect(status);
+        expect(status).to.equal(201);
+        expect(message);
+        expect(message).to.equal(messages.successfulSignup);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .patch(`/api/v2/admin/users/${advertiserId}`)
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'another status',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.invalidUserStatus);
+        done();
+      });
+  });
+  it('Should return status code 404', (done) => {
+    chai.request(app)
+      .patch('/api/v2/admin/users/199')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'active',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(404);
+        expect(error);
+        expect(error).to.equal(messages.userDoesntExist);
+        done();
+      });
+  });
+  it('Should return status code 409', (done) => {
+    chai.request(app)
+      .patch(`/api/v2/admin/users/${advertiserId}`)
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'active',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(409);
+        expect(error);
+        expect(error).to.equal(messages.userIsActive);
+        done();
+      });
+  });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .patch(`/api/v2/admin/users/${advertiserId}`)
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'blacklisted',
+      })
+      .end((err, res) => {
+        const { status, message, data } = res.body;
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.userStatusUpdateSuccessful);
+        expect(data);
+        done();
+      });
+  });
+  it('Should return status code 409', (done) => {
+    chai.request(app)
+      .patch(`/api/v2/admin/users/${advertiserId}`)
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'blacklisted',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(409);
+        expect(error);
+        expect(error).to.equal(messages.userIsBlacklisted);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .patch('/api/v2/admin/users/invalidId')
+      .set('Authorization', `Bearer ${admintoken}`)
+      .send({
+        userStatus: 'blacklisted',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.invalidUserId);
+        done();
+      });
+  });
+  it('Should return status code 401', (done) => {
+    chai.request(app)
+      .patch('/api/v2/admin/users/invalidId')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        userStatus: 'blacklisted',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(401);
+        expect(error);
+        expect(error).to.equal(messages.noAminRights);
+        done();
+      });
+  });
 });
