@@ -90,7 +90,23 @@ const updateAnnouncement = async (req, res) => {
   });
 };
 
+const viewAllAnnouncements = async (req, res) => {
+  // Check and retrieve announcements
+  const announcements = await queries.fetchAllMyAnnouncements(req.userData.id);
+  if (announcements.rows.length === 0) {
+    return res.status(404).json({
+      status: 404,
+      error: messages.announcementDoesntExist,
+    });
+  }
+  return res.status(200).json({
+    status: 200,
+    data: announcements.rows,
+  });
+};
+
 export default {
   createAnnouncement,
   updateAnnouncement,
+  viewAllAnnouncements,
 };

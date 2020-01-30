@@ -370,4 +370,114 @@ describe('Advertiser V2', () => {
         done();
       });
   });
+  // View all announcements
+  it('Should return status code 201', (done) => {
+    chai.request(app)
+      .post('/api/v2/advertiser/announcement')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        title: '12% discount on all products',
+        description: "January 2020 promo. Discount of up to 50% on all our products. Come buy all house items, we've got you covered! Valid only from jan 1st to jan 31st",
+        startdate: '02-23-2020 12:15',
+        enddate: '02-25-2020 11:59',
+      })
+      .end((err, res) => {
+        const {
+          id,
+          title,
+          text,
+          start_date,
+          end_date,
+          status,
+          owner,
+          createdon,
+        } = res.body.data;
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(201);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal(messages.announcementCreated);
+        expect(res.body).to.have.property('data');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(text);
+        expect(start_date);
+        expect(end_date);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
+        done();
+      });
+  });
+  it('Should return status code 201', (done) => {
+    chai.request(app)
+      .post('/api/v2/advertiser/announcement')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        title: '13% discount on all products',
+        description: "January 2020 promo. Discount of up to 50% on all our products. Come buy all house items, we've got you covered! Valid only from jan 1st to jan 31st",
+        startdate: '02-23-2020 12:15',
+        enddate: '02-25-2020 11:59',
+      })
+      .end((err, res) => {
+        const {
+          id,
+          title,
+          text,
+          start_date,
+          end_date,
+          status,
+          owner,
+          createdon,
+        } = res.body.data;
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(201);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal(messages.announcementCreated);
+        expect(res.body).to.have.property('data');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(text);
+        expect(start_date);
+        expect(end_date);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
+        done();
+      });
+  });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .get('/api/v2/advertiser/announcements')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        const {
+          id,
+          title,
+          text,
+          start_date,
+          end_date,
+          status,
+          owner,
+          createdon,
+        } = res.body.data[0];
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('data');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(text);
+        expect(start_date);
+        expect(end_date);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
+        done();
+      });
+  });
 });
