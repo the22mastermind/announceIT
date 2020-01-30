@@ -98,6 +98,15 @@ const fetchAllUsersAnnouncements = async () => {
   return announcements;
 };
 
+const updateAnnouncementStatus = async (announcementStatus, announcementId) => {
+  const announcement = await pool.query('UPDATE announcements SET status=$1 WHERE id=$2 RETURNING*',
+    [
+      announcementStatus,
+      announcementId,
+    ]);
+  return announcement;
+};
+
 export default {
   isUserRegistered,
   signupUser,
@@ -111,4 +120,5 @@ export default {
   retrieveAnnouncement,
   checkAnnouncement,
   dropAnnouncement,
+  updateAnnouncementStatus,
 };
