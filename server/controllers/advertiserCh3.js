@@ -124,9 +124,27 @@ const viewSpecificAnnouncement = async (req, res) => {
   });
 };
 
+const viewAnnouncementsOfState = async (req, res) => {
+  const { announcementStatus } = req.params;
+  // Check and retrieve announcement
+  const announcements = await queries.fetchAllMyAnnouncements(req.userData.id);
+  if (announcements.rows.length === 0) {
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
+  }
+  const sortedAnnouncements = announcements.rows.filter(({ status }) => status === announcementStatus);
+  if (sortedAnnouncements.length === 0) {
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
+  }
+  return res.status(200).json({
+    status: 200,
+    data: sortedAnnouncements,
+  });
+};
+
 export default {
   createAnnouncement,
   updateAnnouncement,
   viewAllAnnouncements,
   viewSpecificAnnouncement,
+  viewAnnouncementsOfState,
 };
