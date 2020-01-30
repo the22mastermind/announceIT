@@ -2,6 +2,7 @@ import messages from '../utils/messages';
 import utils from '../utils/utils';
 import codes from '../utils/codes';
 import queries from '../utils/queries';
+import validation from '../middleware/validation';
 
 const viewAllUsersAnnouncements = async (req, res) => {
   // Retrieve announcements
@@ -31,7 +32,30 @@ const deleteAnnouncement = async (req, res) => {
   });
 };
 
+const changeAnnouncementStatus = async (req, res) => {
+  // Joi Validation
+  const { error } = validation.validateState(req.body);
+  if (error) {
+    return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
+  }
+  const { announcementId } = req.params;
+  const { announcementStatus } = req.body;
+  // Check and retrieve announcement
+  const announcement = await queries.checkAnnouncement(parseInt(announcementId, 10));
+  if (announcement.rows.length === 0) {
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
+  }
+  // Update announcement status
+  const updateAnnouncement = await queries.updateAnnouncementStatus(announcementStatus, announcementId);
+  return res.status(200).json({
+    status: 200,
+    message: messages.announcementUpdatetd,
+    data: updateAnnouncement.rows[0],
+  });
+};
+
 export default {
   viewAllUsersAnnouncements,
   deleteAnnouncement,
+  changeAnnouncementStatus,
 };
