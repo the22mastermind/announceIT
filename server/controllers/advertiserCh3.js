@@ -90,7 +90,23 @@ const updateAnnouncement = async (req, res) => {
   });
 };
 
+const viewSpecificAnnouncement = async (req, res) => {
+  // Retrieve token info
+  const myToken = await auth.myToken(req);
+  const { announcementId } = req.params;
+  // Check and retrieve announcement
+  const announcement = await queries.retrieveAnnouncement(parseInt(announcementId, 10), myToken.id);
+  if (announcement.rows.length === 0) {
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
+  }
+  return res.status(200).json({
+    status: 200,
+    data: announcement.rows[0],
+  });
+};
+
 export default {
   createAnnouncement,
   updateAnnouncement,
+  viewSpecificAnnouncement,
 };
