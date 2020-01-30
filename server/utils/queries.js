@@ -88,6 +88,11 @@ const dropAnnouncement = async (id) => {
   return announcement;
 };
 
+const fetchAllMyAnnouncements = async (id) => {
+  const announcements = await pool.query('SELECT * FROM announcements WHERE owner=$1', [id]);
+  return announcements;
+};
+
 export default {
   isUserRegistered,
   signupUser,
@@ -96,6 +101,7 @@ export default {
   saveAnnouncement,
   fetchMyAnnouncement,
   updateAnnouncement,
+  fetchAllMyAnnouncements,
   retrieveAnnouncement,
   checkAnnouncement,
   dropAnnouncement,
