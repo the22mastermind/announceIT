@@ -79,6 +79,11 @@ const retrieveAnnouncement = async (id) => {
   return announcement.rows;
 };
 
+const fetchAllUsersAnnouncements = async () => {
+  const announcements = await pool.query('SELECT * FROM announcements');
+  return announcements;
+};
+
 export default {
   isUserRegistered,
   signupUser,
@@ -87,4 +92,5 @@ export default {
   saveAnnouncement,
   fetchMyAnnouncement,
   updateAnnouncement,
+  fetchAllUsersAnnouncements,
 };
