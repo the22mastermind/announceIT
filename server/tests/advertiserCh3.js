@@ -447,7 +447,7 @@ describe('Advertiser V2', () => {
         expect(owner).to.be.a('number');
         expect(createdon);
         done();
-    });
+      });
   });
   it('Should return status code 400', (done) => {
     chai.request(app)
@@ -522,6 +522,51 @@ describe('Advertiser V2', () => {
         expect(owner);
         expect(owner).to.be.a('number');
         expect(createdon);
+        done();
+      });
+  });
+  // View announcements by state
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .get('/api/v2/advertiser/announcements/pending')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        const {
+          id,
+          title,
+          text,
+          start_date,
+          end_date,
+          status,
+          owner,
+          createdon,
+        } = res.body.data[0];
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('data');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(text);
+        expect(start_date);
+        expect(end_date);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
+        done();
+      });
+  });
+  it('Should return status code 404', (done) => {
+    chai.request(app)
+      .get('/api/v2/advertiser/announcements/declined')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(404);
+        expect(error);
+        expect(error).to.equal(messages.announcementDoesntExist);
         done();
       });
   });
