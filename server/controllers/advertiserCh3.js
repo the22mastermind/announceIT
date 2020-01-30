@@ -6,7 +6,6 @@ import messages from '../utils/messages';
 import utils from '../utils/utils';
 import codes from '../utils/codes';
 import queries from '../utils/queries';
-import auth from '../middleware/auth';
 
 // eslint-disable-next-line func-names
 const createAnnouncement = async (req, res) => {
@@ -15,15 +14,13 @@ const createAnnouncement = async (req, res) => {
   if (error) {
     return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
   }
-  // Retrieve token info
-  const myToken = await auth.myToken(req);
   const data = {
     title: req.body.title.trim(),
     description: req.body.description.trim(),
     startdate: moment(req.body.startdate.trim(), 'MM-DD-YYYY HH:mm').format('x'),
     enddate: moment(req.body.enddate.trim(), 'MM-DD-YYYY HH:mm').format('x'),
     status: 'pending',
-    owner: myToken.id,
+    owner: req.userData.id,
     createdon: moment().format('LLLL'),
   };
   // Check if dates are valid
@@ -56,14 +53,11 @@ const updateAnnouncement = async (req, res) => {
   if (error) {
     return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
   }
-  // Retrieve token info
-  const myToken = await auth.myToken(req);
-  // Generate new id
   const data = {
     description: req.body.description.trim(),
     startdate: moment(req.body.startdate.trim(), 'MM-DD-YYYY HH:mm').format('x'),
     enddate: moment(req.body.enddate.trim(), 'MM-DD-YYYY HH:mm').format('x'),
-    owner: myToken.id,
+    owner: req.userData.id,
     announcementId: req.params.id,
   };
   // Check if dates are valid
@@ -106,7 +100,6 @@ const viewAllAnnouncements = async (req, res) => {
 };
 
 const viewSpecificAnnouncement = async (req, res) => {
-  // Retrieve token info
   const { announcementId } = req.params;
   // Check and retrieve announcement
   const announcement = await queries.retrieveAnnouncement(parseInt(announcementId, 10), req.userData.id);

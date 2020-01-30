@@ -8,7 +8,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 chai.should();
 
-describe('User sign up', () => {
+describe('User sign up V2', () => {
   it('Should return status code 201', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -178,7 +178,7 @@ describe('User sign up', () => {
   });
 });
 
-describe('User sign in', () => {
+describe('User sign in V2', () => {
   it('Should return status code 404', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signin')

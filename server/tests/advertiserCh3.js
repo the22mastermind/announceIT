@@ -493,4 +493,36 @@ describe('Advertiser V2', () => {
         done();
       });
   });
+  // View specific announcement
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .get(`/api/v2/advertiser/announcement/${announcementId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        const {
+          id,
+          title,
+          text,
+          start_date,
+          end_date,
+          status,
+          owner,
+          createdon,
+        } = res.body.data;
+        expect(res.body).to.have.property('status');
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('data');
+        expect(id);
+        expect(id).to.be.a('number');
+        expect(title);
+        expect(text);
+        expect(start_date);
+        expect(end_date);
+        expect(status);
+        expect(owner);
+        expect(owner).to.be.a('number');
+        expect(createdon);
+        done();
+      });
+  });
 });
