@@ -1,7 +1,6 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable no-shadow */
 import moment from 'moment';
-import jwt from 'jsonwebtoken';
 import validation from '../middleware/validation';
 import messages from '../utils/messages';
 import utils from '../utils/utils';
