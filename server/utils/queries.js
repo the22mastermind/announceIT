@@ -74,8 +74,6 @@ const updateAnnouncement = async (data) => {
 
 const retrieveAnnouncement = async (id) => {
   const announcement = await pool.query('SELECT * FROM announcements WHERE id=$1', [id]);
-  console.log(announcement.rows);
-  console.log('=====================');
   return announcement.rows;
 };
 
