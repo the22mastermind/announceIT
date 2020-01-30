@@ -41,8 +41,8 @@ const create = () => {
       picture varchar NULL,
       title varchar NOT NULL,
       text varchar NOT NULL,
-      start_date timestamptz NOT NULL,
-      end_date timestamptz NOT NULL,
+      start_date varchar NOT NULL,
+      end_date varchar NOT NULL,
       status varchar NOT NULL,
       owner int REFERENCES users(id) ON DELETE CASCADE,
       createdon timestamptz NOT NULL

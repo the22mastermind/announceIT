@@ -25,7 +25,59 @@ const signupUser = async (data) => {
   return user;
 };
 
+const canCreateUpdateAnnouncements = async (id) => {
+  const user = await pool.query('SELECT status FROM users WHERE id=$1', [id]);
+  return user.rows[0].status;
+};
+
+const doesAnnouncementExists = async (title, owner) => {
+  const announcement = await pool.query('SELECT * FROM announcements WHERE title=$1 and owner=$2', [title, owner]);
+  if (announcement.rows.length !== 0) {
+    return true;
+  }
+  return false;
+};
+
+const saveAnnouncement = async (data) => {
+  const announcement = await pool.query('INSERT INTO announcements(title,text,start_date,end_date,status,owner,createdon) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING*',
+    [
+      data.title,
+      data.description,
+      data.startdate,
+      data.enddate,
+      data.status,
+      data.owner,
+      data.createdon,
+    ]);
+  return announcement;
+};
+
+const fetchMyAnnouncement = async (id, owner) => {
+  const announcement = await pool.query('SELECT * FROM announcements WHERE id=$1 and owner=$2', [id, owner]);
+  if (announcement.rows.length !== 0) {
+    return true;
+  }
+  return false;
+};
+
+const updateAnnouncement = async (data) => {
+  const announcement = await pool.query('UPDATE announcements SET text=$1,start_date=$2,end_date=$3 WHERE id=$4 and owner=$5 RETURNING*',
+    [
+      data.description,
+      data.startdate,
+      data.enddate,
+      data.announcementId,
+      data.owner,
+    ]);
+  return announcement;
+};
+
 export default {
   isUserRegistered,
   signupUser,
+  canCreateUpdateAnnouncements,
+  doesAnnouncementExists,
+  saveAnnouncement,
+  fetchMyAnnouncement,
+  updateAnnouncement,
 };
