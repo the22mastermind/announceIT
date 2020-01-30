@@ -6,6 +6,7 @@ import checkId from '../middleware/isInteger';
 
 const router = express.Router();
 
+router.get('/announcements', authenticate, isUserAdmin, controller.viewAllUsersAnnouncements);
 router.delete('/announcements/:announcementId', authenticate, isUserAdmin, checkId, controller.deleteAnnouncement);
 
 export default router;
