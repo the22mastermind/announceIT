@@ -49,11 +49,11 @@ const userSignup = async (req, res) => {
       };
       // Save to db
       const saveUser = await queries.signupUser(newUser);
-      //
+      const { password, ...user } = saveUser.rows[0];
       return res.status(201).json({
         status: 201,
         message: messages.successfulSignup,
-        data: saveUser.rows[0],
+        data: user,
       });
     }
   });
