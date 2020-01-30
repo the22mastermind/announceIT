@@ -54,8 +54,41 @@ const changeAnnouncementStatus = async (req, res) => {
   });
 };
 
+const changeUserStatus = async (req, res) => {
+  // Joi Validation
+  const { error } = validation.validateUserStatus(req.body);
+  if (error) {
+    return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
+  }
+  const { id } = req.params;
+  const { userStatus } = req.body;
+  const role = true;
+  // Check if user exists
+  const user = await queries.doesUserExist(parseInt(id, 10), role);
+  if (user.rows.length === 0) {
+    return utils.returnError(res, codes.statusCodes.notFound, messages.userDoesntExist);
+  }
+  // If user exists, check if they are not already blacklisted
+  if (user.rows[0].status === 'blacklisted' && userStatus === 'blacklisted') {
+    return utils.returnError(res, codes.statusCodes.conflict, messages.userIsBlacklisted);
+  }
+  // If user exists, check if they are not already whitelisted
+  if (user.rows[0].status === 'active' && userStatus === 'active') {
+    return utils.returnError(res, codes.statusCodes.conflict, messages.userIsActive);
+  }
+  // Update user status
+  const updateStatus = await queries.updateUserStatus(userStatus, parseInt(id, 10));
+  const { password, ...newUserData } = updateStatus.rows[0];
+  return res.status(200).json({
+    status: 200,
+    message: messages.userStatusUpdateSuccessful,
+    data: newUserData,
+  });
+};
+
 export default {
   viewAllUsersAnnouncements,
   deleteAnnouncement,
   changeAnnouncementStatus,
+  changeUserStatus,
 };
