@@ -4,6 +4,12 @@ import codes from '../utils/codes';
 import queries from '../utils/queries';
 import validation from '../middleware/validation';
 
+/**
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} object
+ * @description Fetch all announcements of all the users
+ */
 const viewAllUsersAnnouncements = async (req, res) => {
   // Retrieve announcements
   const announcements = await queries.fetchAllUsersAnnouncements();
@@ -15,7 +21,12 @@ const viewAllUsersAnnouncements = async (req, res) => {
     data: announcements.rows,
   });
 };
-
+/**
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} object
+ * @description Delete an announcement
+ */
 const deleteAnnouncement = async (req, res) => {
   const { announcementId } = req.params;
   // Check and retrieve announcement
@@ -31,7 +42,12 @@ const deleteAnnouncement = async (req, res) => {
     data: delAnnnouncement.rows[0],
   });
 };
-
+/**
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} object
+ * @description Change an announcement's status
+ */
 const changeAnnouncementStatus = async (req, res) => {
   // Joi Validation
   const { error } = validation.validateState(req.body);
@@ -53,7 +69,12 @@ const changeAnnouncementStatus = async (req, res) => {
     data: updateAnnouncement.rows[0],
   });
 };
-
+/**
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} object
+ * @description Blacklist or activate a user
+ */
 const changeUserStatus = async (req, res) => {
   // Joi Validation
   const { error } = validation.validateUserStatus(req.body);

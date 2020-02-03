@@ -7,7 +7,12 @@ import utils from '../utils/utils';
 import codes from '../utils/codes';
 import queries from '../utils/queries';
 
-// eslint-disable-next-line func-names
+/**
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} object
+ * @description Advertiser creates a new announcement
+ */
 const createAnnouncement = async (req, res) => {
   // Joi Validation
   const { error } = validation.validateCreateAnnouncement(req.body);
@@ -53,6 +58,12 @@ const createAnnouncement = async (req, res) => {
   });
 };
 
+/**
+ * @param {object} announcementId
+ * @param {object} res
+ * @returns {object} object
+ * @description Advertiser updates an existing announcement
+ */
 const updateAnnouncement = async (req, res) => {
   // Joi Validation
   const { error } = validation.validateUpdateAnnouncement(req.body);
@@ -96,6 +107,12 @@ const updateAnnouncement = async (req, res) => {
   });
 };
 
+/**
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} object
+ * @description Advertiser view all my announcements
+ */
 const viewAllAnnouncements = async (req, res) => {
   // Check and retrieve announcements
   const announcements = await queries.fetchAllMyAnnouncements(req.userData.id);
@@ -111,6 +128,12 @@ const viewAllAnnouncements = async (req, res) => {
   });
 };
 
+/**
+ * @param {object} announcementId
+ * @param {object} res
+ * @returns {object} object
+ * @description Advertiser view a specific announcement
+ */
 const viewSpecificAnnouncement = async (req, res) => {
   const { announcementId } = req.params;
   // Check and retrieve announcement
@@ -124,6 +147,12 @@ const viewSpecificAnnouncement = async (req, res) => {
   });
 };
 
+/**
+ * @param {object} announcementStatus
+ * @param {object} res
+ * @returns {object} object
+ * @description Advertiser view all announcements of a specific status
+ */
 const viewAnnouncementsOfState = async (req, res) => {
   const { announcementStatus } = req.params;
   // Check and retrieve announcement
