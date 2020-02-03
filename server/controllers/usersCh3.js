@@ -10,6 +10,12 @@ import codes from '../utils/codes';
 import queries from '../utils/queries';
 import pool from '../config/db';
 
+/**
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} object
+ * @description User sign up
+ */
 const userSignup = async (req, res) => {
   // Joi Validation
   const { error } = validation.validateSignUp(req.body);
@@ -59,6 +65,12 @@ const userSignup = async (req, res) => {
   });
 };
 
+/**
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} object
+ * @description User sign in
+ */
 const userSignin = async (req, res) => {
   // Joi Validation
   const { error } = validation.validateSignin(req.body);

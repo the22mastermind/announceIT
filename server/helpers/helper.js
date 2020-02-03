@@ -7,6 +7,12 @@ exports.getNewId = (array) => {
   return 1;
 };
 
+/**
+ * @param {string} password
+ * @param {string} confirmpassword
+ * @returns {boolean} true | false
+ * @description Compare password and confirmpassword
+ */
 exports.matchPasswords = (password, confirmpassword) => {
   if (password !== confirmpassword) {
     return false;

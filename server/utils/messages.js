@@ -35,3 +35,4 @@ exports.userStatusUpdateSuccessful = 'User updated successfully';
 exports.invalidUserId = 'id must be a number';
 exports.userIsActive = 'User is already active';
 exports.invalidUserStatus = 'userStatus must be one of [blacklisted, active]';
+exports.invalidRoutes = 'Resource not found';

@@ -1,5 +1,11 @@
 import Joi from '@hapi/joi';
 
+/**
+ * @param {string} email
+ * @param {string} password
+ * @returns {object} object
+ * @description User sign in validation
+ */
 function validateSignin(user) {
   const schema = {
     email: Joi.string().email({ minDomainSegments: 2 }).required(),
@@ -14,6 +20,18 @@ function validateSignin(user) {
   return Joi.validate(user, schema, options);
 }
 
+/**
+ * @param {string} firstname
+ * @param {string} lastname
+ * @param {string} email
+ * @param {string} phone
+ * @param {string} address
+ * @param {string} password
+ * @param {string} confirmpassword
+ * @param {boolean} isadmin
+ * @returns {object} object
+ * @description User sign up validation
+ */
 function validateSignUp(user) {
   const schema = {
     firstname: Joi.string().min(3).max(30).required(),
@@ -36,6 +54,14 @@ function validateSignUp(user) {
   return Joi.validate(user, schema, options);
 }
 
+/**
+ * @param {string} title
+ * @param {string} description
+ * @param {string} startdate
+ * @param {string} enddate
+ * @returns {object} object
+ * @description Create announcement validation
+ */
 function validateCreateAnnouncement(data) {
   const schema = {
     title: Joi.string().min(10).max(30).required(),
@@ -51,6 +77,13 @@ function validateCreateAnnouncement(data) {
   return Joi.validate(data, schema, options);
 }
 
+/**
+ * @param {string} description
+ * @param {string} startdate
+ * @param {string} enddate
+ * @returns {object} object
+ * @description Update announcement validation
+ */
 function validateUpdateAnnouncement(data) {
   const schema = {
     description: Joi.string().min(100).max(1000).required(),
@@ -65,6 +98,11 @@ function validateUpdateAnnouncement(data) {
   return Joi.validate(data, schema, options);
 }
 
+/**
+ * @param {string} announcementId
+ * @returns {object} object
+ * @description Announcement id validation
+ */
 function validateId(id) {
   const schema = {
     announcementId: Joi.number().min(1).max(100000).required(),
@@ -77,6 +115,11 @@ function validateId(id) {
   return Joi.validate(id, schema, options);
 }
 
+/**
+ * @param {string} announcementStatus
+ * @returns {object} object
+ * @description Announcement status validation
+ */
 function validateState(state) {
   const schema = {
     announcementStatus: Joi.string().valid(['pending', 'accepted', 'declined', 'active', 'deactivated']).required(),
@@ -89,6 +132,11 @@ function validateState(state) {
   return Joi.validate(state, schema, options);
 }
 
+/**
+ * @param {string} id
+ * @returns {object} object
+ * @description User id validation
+ */
 function validateUserId(id) {
   const schema = {
     id: Joi.number().min(1).required(),
@@ -101,6 +149,11 @@ function validateUserId(id) {
   return Joi.validate(id, schema, options);
 }
 
+/**
+ * @param {string} userStatus
+ * @returns {object} object
+ * @description User status validation
+ */
 function validateUserStatus(state) {
   const schema = {
     userStatus: Joi.string().valid(['blacklisted', 'active']).required(),

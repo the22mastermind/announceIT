@@ -5,7 +5,9 @@ pool.on('connect', () => {
   console.log('Connected to DB');
 });
 
-// Drop Tables
+/**
+ * @description Delete users, announcements, and flags tables
+ */
 const drop = () => {
   const dropUsersTable = 'DROP TABLE IF EXISTS users CASCADE;';
   const dropAnnouncementsTable = 'DROP TABLE IF EXISTS announcements CASCADE;';
@@ -21,7 +23,9 @@ const drop = () => {
   });
 };
 
-// Create Tables
+/**
+ * @description Create users, announcements, and flags tables
+ */
 const create = () => {
   const createUsersTable = `CREATE TABLE IF NOT EXISTS users(
       id serial PRIMARY KEY,
