@@ -166,10 +166,7 @@ const userPasswordReset = async (req, res) => {
           message: messages.passwordResetSuccessful,
         });
       }
-      return res.status(400).json({
-        status: 400,
-        message: messages.passwordResetFailed,
-      });
+      return utils.returnError(res, codes.statusCodes.badRequest, messages.passwordResetFailed);
     });
   }
   // Check if password matches saved one before resetting it
@@ -196,8 +193,41 @@ const userPasswordReset = async (req, res) => {
   });
 };
 
+/**
+ * @param {object} announcementId
+ * @param {object} res
+ * @returns {object} object
+ * @description User flag announcement
+ */
+const flagAnnouncement = async (req, res) => {
+  // Joi Validation
+  const { error } = validation.validateFlagAnnouncement(req.body);
+  if (error) {
+    return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
+  }
+  const data = {
+    reason: req.body.reason.trim(),
+    description: req.body.description.trim(),
+    createdon: moment().format('LLLL'),
+    announcementId: parseInt(req.params.announcementId, 10),
+  };
+  // Check if announcement exists already (id)
+  const announcement = await queries.checkAnnouncement(data.announcementId);
+  if (announcement.rows.length === 0) {
+    return utils.returnError(res, codes.statusCodes.notFound, messages.announcementDoesntExist);
+  }
+  // Save flag
+  const saveFlag = await queries.saveFlagInfo(data);
+  return res.status(200).json({
+    status: 200,
+    message: messages.flagSuccessful,
+    data: saveFlag.rows[0],
+  });
+};
+
 export default {
   userSignup,
   userSignin,
   userPasswordReset,
+  flagAnnouncement,
 };

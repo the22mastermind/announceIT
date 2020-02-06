@@ -237,6 +237,22 @@ const updateUserPassword = async (password, email) => {
   return false;
 };
 
+/**
+ * @param {object} data
+ * @returns {object} flag
+ * @description Persist flag data in database
+ */
+const saveFlagInfo = async (data) => {
+  const flag = await pool.query('INSERT INTO flags(announcement_id,reason,description,createdon) VALUES($1,$2,$3,$4) RETURNING*',
+    [
+      data.announcementId,
+      data.reason,
+      data.description,
+      data.createdon,
+    ]);
+  return flag;
+};
+
 export default {
   isUserRegistered,
   signupUser,
@@ -255,4 +271,5 @@ export default {
   updateUserStatus,
   updateUserPassword,
   arePasswordsMatching,
+  saveFlagInfo,
 };

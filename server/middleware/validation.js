@@ -189,6 +189,25 @@ function validatePasswordReset(data) {
   return Joi.validate(data, schema, options);
 }
 
+/**
+ * @param {string} reason
+ * @param {string} description
+ * @returns {object} object
+ * @description Flag announcement validation
+ */
+function validateFlagAnnouncement(data) {
+  const schema = {
+    reason: Joi.string().valid(['sexist', 'racist', 'bad language', 'other']).required(),
+    description: Joi.string().min(5).max(1000).required(),
+  };
+  const options = {
+    language: {
+      key: '{{key}} ',
+    },
+  };
+  return Joi.validate(data, schema, options);
+}
+
 export default {
   validateSignin,
   validateSignUp,
@@ -199,4 +218,5 @@ export default {
   validateUserId,
   validateUserStatus,
   validatePasswordReset,
+  validateFlagAnnouncement,
 };

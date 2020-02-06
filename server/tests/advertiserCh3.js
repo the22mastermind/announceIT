@@ -570,4 +570,74 @@ describe('Advertiser V2', () => {
         done();
       });
   });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .post(`/api/v2/guest/announcement/${announcementId}`)
+      .send({
+        reason: 'racist',
+        description: 'This announcement is very inappropriate in the fact that it is very racist.\nPlease change it asap.',
+      })
+      .end((err, res) => {
+        const { status, message, data } = res.body;
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.flagSuccessful);
+        expect(data);
+        expect(data).to.have.property('id');
+        expect(data).to.have.property('announcement_id');
+        expect(data).to.have.property('reason');
+        expect(data).to.have.property('description');
+        expect(data).to.have.property('createdon');
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .post(`/api/v2/guest/announcement/${announcementId}`)
+      .send({
+        reason: 'invalid reason',
+        description: 'This announcement is very inappropriate in the fact that it is very racist.\nPlease change it asap.',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.flagInvalidResaon);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .post(`/api/v2/guest/announcement/${announcementId}`)
+      .send({
+        reason: '',
+        description: 'This announcement is very inappropriate in the fact that it is very racist.\nPlease change it asap.',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.flagEmptyResaon);
+        done();
+      });
+  });
+  it('Should return status code 404', (done) => {
+    chai.request(app)
+      .post('/api/v2/guest/announcement/200')
+      .send({
+        reason: 'sexist',
+        description: 'This announcement is very inappropriate in the fact that it is very racist.\nPlease change it asap.',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(404);
+        expect(error);
+        expect(error).to.equal(messages.announcementDoesntExist);
+        done();
+      });
+  });
 });
