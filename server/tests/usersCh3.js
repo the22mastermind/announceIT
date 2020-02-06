@@ -1,8 +1,10 @@
 /* eslint-disable no-undef */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import sinon from 'sinon';
 import app from '../index';
 import messages from '../utils/messages';
+import utils from '../utils/utils';
 
 const { expect } = chai;
 chai.use(chaiHttp);
@@ -446,6 +448,10 @@ describe('User reset password in V2', () => {
         done();
       });
   });
+  before(() => {
+    utils.sendEmailWrapper = sinon.stub().returns(true);
+    utils.emailPassword = sinon.stub().returns(true);
+  });
   it('Should return status code 200', (done) => {
     chai.request(app)
       .post('/api/v2/auth/reset_password')
@@ -453,7 +459,6 @@ describe('User reset password in V2', () => {
         email: 'bertrand8811@gmail.com',
       })
       .end((err, res) => {
-        console.log('==== ', res.body);
         const { status, message } = res.body;
         expect(status);
         expect(status).to.equal(200);

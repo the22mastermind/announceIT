@@ -131,4 +131,5 @@ export default {
   returnError,
   generatePassword,
   emailPassword,
+  sendEmailWrapper,
 };
