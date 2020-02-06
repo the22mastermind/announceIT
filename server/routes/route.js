@@ -5,6 +5,7 @@ import adminrRoutes from './admin';
 import user from './usersCh3';
 import advertiser from './advertiserCh3';
 import admin from './adminCh3';
+import guest from './guestCh3';
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.use('/api/v1/admin', adminrRoutes);
 router.use('/api/v2/auth', user);
 router.use('/api/v2/advertiser', advertiser);
 router.use('/api/v2/admin', admin);
+router.use('/api/v2/guest', guest);
 
 export default router;

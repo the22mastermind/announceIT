@@ -41,3 +41,7 @@ exports.passwordResetSuccessful = 'Password reset successfully';
 exports.passwordResetFailed = 'Password reset failed. Please try again';
 exports.passwordsNoMatchExisting = 'The password provided does not match the one in our records. Please try again';
 exports.noNewPassword = 'Please make sure to provide a new password';
+exports.flagSuccessful = 'Announcement flagged successfully';
+exports.flagFailed = 'Announcement flag failed. Please try again';
+exports.flagInvalidResaon = 'reason must be one of [sexist, racist, bad language, other]';
+exports.flagEmptyResaon = 'reason is not allowed to be empty';
