@@ -453,7 +453,7 @@ describe('User reset password in V2', () => {
         email: 'bertrand8811@gmail.com',
       })
       .end((err, res) => {
-        console.log(res.body);
+        console.log('==== ', res.body);
         const { status, message } = res.body;
         expect(status);
         expect(status).to.equal(200);
