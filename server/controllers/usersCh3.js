@@ -123,7 +123,81 @@ const userSignin = async (req, res) => {
   });
 };
 
+/**
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} object
+ * @description User password reset
+ */
+const userPasswordReset = async (req, res) => {
+  // Joi Validation
+  const { error } = validation.validatePasswordReset(req.body);
+  if (error) {
+    return utils.returnError(res, codes.statusCodes.badRequest, error.details[0].message);
+  }
+  const data = {
+    email: req.body.email.trim(),
+    password: req.body.password,
+    new_password: req.body.new_password,
+  };
+  // Check if user has already signed up
+  const myUser = await queries.isUserRegistered(data.email);
+  if (!myUser) {
+    return utils.returnError(res, codes.statusCodes.notFound, messages.userDoesntExist);
+  }
+  if (data.password === undefined) {
+    // Generate new password
+    const newPassword = await utils.generatePassword();
+    // Send new password via email
+    const emailPassword = await utils.emailPassword(data.email, newPassword);
+    if (!emailPassword) {
+      return utils.returnError(res, codes.statusCodes.badRequest, messages.passwordResetFailed);
+    }
+    // Encrypt password
+    return bcrypt.hash(newPassword, 10, async (err, hash) => {
+      if (hash) {
+        // Save password in database
+        const updateUser = await queries.updateUserPassword(hash, data.email);
+        if (!updateUser) {
+          return utils.returnError(res, codes.statusCodes.badRequest, messages.passwordResetFailed);
+        }
+        return res.status(200).json({
+          status: 200,
+          message: messages.passwordResetSuccessful,
+        });
+      }
+      return res.status(400).json({
+        status: 400,
+        message: messages.passwordResetFailed,
+      });
+    });
+  }
+  // Check if password matches saved one before resetting it
+  const match = await queries.arePasswordsMatching(data.email, data.password.trim());
+  if (!match) {
+    return utils.returnError(res, codes.statusCodes.badRequest, messages.passwordsNoMatchExisting);
+  }
+  if (data.new_password === undefined) {
+    return utils.returnError(res, codes.statusCodes.badRequest, messages.noNewPassword);
+  }
+  // Encrypt new password
+  return bcrypt.hash(data.new_password.trim(), 10, async (err, hash) => {
+    if (hash) {
+      // Save password in database
+      const updateUser = await queries.updateUserPassword(hash, data.email);
+      if (!updateUser) {
+        return utils.returnError(res, codes.statusCodes.badRequest, messages.passwordResetFailed);
+      }
+      return res.status(200).json({
+        status: 200,
+        message: messages.passwordResetSuccessful,
+      });
+    }
+  });
+};
+
 export default {
   userSignup,
   userSignin,
+  userPasswordReset,
 };

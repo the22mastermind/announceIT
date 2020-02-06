@@ -342,3 +342,124 @@ describe('User sign in V2', () => {
       });
   });
 });
+
+describe('User reset password in V2', () => {
+  it('Should return status code 404', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/reset_password')
+      .send({
+        email: 'wronguser@gmail.com',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(404);
+        expect(error);
+        expect(error).to.equal(messages.userDoesntExist);
+        done();
+      });
+  });
+  it('Should return status code 201', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signup')
+      .send({
+        firstname: 'John',
+        lastname: 'Mugabo',
+        email: 'bertrand8811@gmail.com',
+        phone: '+250787770000',
+        address: 'Kigali, Rwanda',
+        password: 'bertrand88',
+        confirmpassword: 'bertrand88',
+      })
+      .end((err, res) => {
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(201);
+        expect(message);
+        expect(message).to.equal(messages.successfulSignup);
+        done();
+      });
+  });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signin')
+      .send({
+        email: 'bertrand8811@gmail.com',
+        password: 'bertrand88',
+      })
+      .end((err, res) => {
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.successfulLogin);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/reset_password')
+      .send({
+        email: 'bertrand8811@gmail.com',
+        password: 'mugabooooo',
+        new_password: 'mugabooooo',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.passwordsNoMatchExisting);
+        done();
+      });
+  });
+  it('Should return status code 400', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/reset_password')
+      .send({
+        email: 'bertrand8811@gmail.com',
+        password: 'bertrand88',
+      })
+      .end((err, res) => {
+        const { status, error } = res.body;
+        expect(status);
+        expect(status).to.equal(400);
+        expect(error);
+        expect(error).to.equal(messages.noNewPassword);
+        done();
+      });
+  });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/reset_password')
+      .send({
+        email: 'bertrand8811@gmail.com',
+        password: 'bertrand88',
+        new_password: 'hello123',
+      })
+      .end((err, res) => {
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.passwordResetSuccessful);
+        done();
+      });
+  });
+  it('Should return status code 200', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/reset_password')
+      .send({
+        email: 'bertrand8811@gmail.com',
+      })
+      .end((err, res) => {
+        console.log(res.body);
+        const { status, message } = res.body;
+        expect(status);
+        expect(status).to.equal(200);
+        expect(message);
+        expect(message).to.equal(messages.passwordResetSuccessful);
+        done();
+      });
+  });
+});
