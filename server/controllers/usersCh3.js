@@ -153,6 +153,7 @@ const userPasswordReset = async (req, res) => {
     if (!emailPassword) {
       return utils.returnError(res, codes.statusCodes.badRequest, messages.passwordResetFailed);
     }
+    console.log('**** EMAIL SENT, SAVING TO DB...');
     // Encrypt password
     return bcrypt.hash(newPassword, 10, async (err, hash) => {
       if (hash) {
