@@ -1,4 +1,5 @@
 /* eslint-disable no-else-return */
+import bcrypt from 'bcrypt';
 import pool from '../config/db';
 
 /**
@@ -208,6 +209,34 @@ const updateUserStatus = async (newStatus, id) => {
   return user;
 };
 
+/**
+ * @param {string} email
+ * @returns {boolean} true | false
+ * @description Checks if the password provided matches the one in records
+ */
+async function arePasswordsMatching(email, password) {
+  const user = await pool.query('SELECT * FROM users WHERE email=$1', [email]);
+  const response = await bcrypt.compare(password, user.rows[0].password);
+  return response;
+}
+
+/**
+ * @param {string} password
+ * @returns {boolean} true | false
+ * @description Save the new password of a user
+ */
+const updateUserPassword = async (password, email) => {
+  const user = await pool.query('UPDATE users SET password=$1 WHERE email=$2 RETURNING*',
+    [
+      password,
+      email,
+    ]);
+  if (user.rows.length !== 0) {
+    return true;
+  }
+  return false;
+};
+
 export default {
   isUserRegistered,
   signupUser,
@@ -224,4 +253,6 @@ export default {
   updateAnnouncementStatus,
   doesUserExist,
   updateUserStatus,
+  updateUserPassword,
+  arePasswordsMatching,
 };
