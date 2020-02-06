@@ -166,6 +166,29 @@ function validateUserStatus(state) {
   return Joi.validate(state, schema, options);
 }
 
+/**
+ * @param {string} email
+ * @param {string} password
+ * @param {string} confirmpassword
+ * @returns {object} object
+ * @description User reset password validation
+ */
+function validatePasswordReset(data) {
+  const schema = {
+    email: Joi.string().email({ minDomainSegments: 2 }).required(),
+    password: Joi.string().regex(/^[a-zA-Z0-9] |[a-zA-Z0-9]+$/).min(8).max(15)
+      .optional(),
+    new_password: Joi.string().regex(/^[a-zA-Z0-9] |[a-zA-Z0-9]+$/).min(8).max(15)
+      .optional(),
+  };
+  const options = {
+    language: {
+      key: '{{key}} ',
+    },
+  };
+  return Joi.validate(data, schema, options);
+}
+
 export default {
   validateSignin,
   validateSignUp,
@@ -175,4 +198,5 @@ export default {
   validateState,
   validateUserId,
   validateUserStatus,
+  validatePasswordReset,
 };
